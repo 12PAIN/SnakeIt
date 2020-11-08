@@ -1,2 +1,5 @@
 ﻿  SnakeIt.cpp
+E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(60,33): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(126,52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(126,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   SnakeIt.vcxproj -> E:\Study\SnakeIt\SnakeIt\Debug\SnakeIt.exe
