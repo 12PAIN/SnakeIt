@@ -1,5 +1,10 @@
 ﻿  SnakeIt.cpp
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(60,33): warning C4305: 'initializing': truncation from 'double' to 'float'
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(126,52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(126,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(49,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(68,33): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(118,33): warning C4305: '=': truncation from 'double' to 'float'
+E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(192,20): warning C4305: '=': truncation from 'double' to 'float'
+E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(211,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(211,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(217,52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(217,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   SnakeIt.vcxproj -> E:\Study\SnakeIt\SnakeIt\Debug\SnakeIt.exe

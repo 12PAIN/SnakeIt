@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <time.h>
 
 const int WEIGHT = 500;
 const int HEIGHT = 500;
@@ -25,8 +26,10 @@ struct Point
     int x, y;
 } a[4], b[4];
 
+
 using namespace sf;
 
+bool check();
 void Run();
 void Draw();
 
@@ -43,32 +46,58 @@ void Run() {
 
 void Draw() {
 
+    srand(time(0));
+
     ContextSettings settings;
     settings.antialiasingLevel = 8;
 
     RenderWindow window(VideoMode(WEIGHT, HEIGHT), "SnakeIt");
 
+    //Загрузка текстуры
     Texture tex1;
     tex1.setRepeated(true);
     tex1.loadFromFile("E:\\Study\\SnakeIt\\Textures\\tex1.png");
 
+    //Спрайт
+    int colorNum = 1; 
     Sprite sprite(tex1);
     sprite.setTextureRect(IntRect(0, 0, 18, 18));
 
+    //Инициализация для таймера
     Clock clock;
-
     float timer = 0, delay = 0.3;
 
+    //Тип фигуры
+    int n = rand() % 7;
+
+    //Движение по горизонтали
     int dx = 0;
+
+    //Поворот
     bool rotate = 0;
+
+    //Игра только запустилась?
+    bool beginGame = true;
+
+    
 
     while (window.isOpen()) {
 
         float time = clock.getElapsedTime().asSeconds();
         clock.restart();
         timer += time;
+        
 
         window.clear(Color::White);
+
+        RectangleShape rect1(Vector2f( (WEIGHT),(HEIGHT - (M*18))));
+        rect1.setFillColor(Color(200, 200, 200));
+        rect1.setPosition(0, M * 18);
+        window.draw(rect1);
+        RectangleShape rect2(Vector2f((WEIGHT - (N * 18)), (HEIGHT )));
+        rect2.setFillColor(Color(200, 200, 200));
+        rect2.setPosition(N*18,0);
+        window.draw(rect2);
 
         Event event;
         while (window.pollEvent(event)) {
@@ -85,49 +114,119 @@ void Draw() {
                 if (event.key.code == Keyboard::Right) {
                     dx = 1;
                 }
+                if (event.key.code == Keyboard::Down) {
+                    delay = 0.05;
+                }
+                if (event.key.code == Keyboard::Escape) {
+                    window.close();
+                }
 
             }
         }
+        
+        for (int i = 0; i < 4; i++) {
+            b[i] = a[i];
+            a[i].x += dx;
+        }
 
-        for (int i = 0; i < 4; i++) a[i].x += dx;
+        if (!check())
+        for(int i = 0; i < 4; i++){
+            a[i] = b[i];
+        }
 
         if (rotate) {
             Point p = a[1];
             for (int i = 0; i < 4; i++) {
+                b[i] = a[i];
                 int x = a[i].y - p.y;
                 int y = a[i].x - p.x;
                 a[i].x = p.x - x;
                 a[i].y = p.y + y;
             }
+
+            if (!check())
+            for(int i = 0; i < 4; i++){
+                a[i] = b[i];
+            }
+            
+
         }
 
         if (timer > delay) {
             for (int i = 0; i < 4; i++) {
+                b[i] = a[i];
                 a[i].y++;
             }
+
+            if (!check()){
+
+                for (int i = 0; i < 4; i++) {
+                    field[b[i].y][b[i].x] = colorNum;
+                }
+
+                colorNum = 1 + rand() % 7;
+                n = rand() % 7;
+                for(int i = 0; i < 4; i++){
+                    a[i].x = figures[n][i] % 2;
+                    a[i].y = figures[n][i] / 2;
+                }
+
+            }
+
             timer = 0;
         }
 
-        int n = 3; 
+        if (beginGame) {
 
-        if (a[0].x == 0)
-        for (int i = 0; i < 4; i++)
-        {
-            a[i].x = figures[n][i] % 2;
-            a[i].y = figures[n][i] / 2;
+            beginGame = false;
+            n = rand() % 7;
+            for (int i = 0; i < 4; i++) {
+                a[i].x = figures[n][i] % 2;
+                a[i].y = figures[n][i] / 2;
+            }
+
         }
 
         dx = 0;
         rotate = 0;
+        delay = 0.3;
 
-        for (int i = 0; i < 4; i++)
+        int k = M - 1;
+        for (int i = M - 1; i > 0; i--)
         {
-            // Устанавливаем позицию каждого кусочка тетрамино
+            int count = 0;
+            for (int j = 0; j < N; j++)
+            {
+                if (field[i][j]) count++;
+                field[k][j] = field[i][j];
+            }
+            if (count < N) k--;
+        }
+
+        
+        for (int i = 0; i < M; i++) {
+            for (int j = 0; j < N; j++) {
+                if (field[i][j] == 0) continue;
+                sprite.setTextureRect(IntRect(field[i][j]* 18, 0, 18, 18));
+                sprite.setPosition(j * 18, i * 18);
+                window.draw(sprite);
+            }
+        }
+        for (int i = 0; i < 4; i++) {
+            sprite.setTextureRect(IntRect(colorNum * 18, 0, 18, 18));
             sprite.setPosition(a[i].x * 18, a[i].y * 18);
-            // Отрисовка спрайта
             window.draw(sprite);
         }
 
         window.display();
     }
+}
+
+bool check()
+{
+    for (int i = 0; i < 4; i++)
+        if (a[i].x < 0 || a[i].x >= N || a[i].y >= M) return 0;
+        else if (field[a[i].y][a[i].x]) return 0;
+
+    return 1;
 }
