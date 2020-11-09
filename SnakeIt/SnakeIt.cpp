@@ -48,7 +48,7 @@ public:
         tex1.loadFromFile("../Textures/tex2.png");
 
         //Спрайт кубиков
-        int colorNum = 1;
+        int colorNum = 1 + rand() % 7;
         Sprite sprite(tex1);
         sprite.setTextureRect(IntRect(0, 0, 18, 18));
 
