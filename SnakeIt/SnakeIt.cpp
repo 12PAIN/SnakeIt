@@ -3,8 +3,8 @@
 #include <time.h>
 #include <string>
 
-const int WEIGHT = 500;
-const int HEIGHT = 500;
+const int WEIGHT = 1280;
+const int HEIGHT = 720;
 
 const int M = 20; // высота игрового поля
 const int N = 10; // ширина игрового поля
@@ -70,6 +70,7 @@ void Draw() {
 
     //Загрузка фона
     Texture background;
+    background.setRepeated(true);
     background.loadFromFile("../Textures/background.png");
     Sprite bground(background);
 
@@ -92,8 +93,6 @@ void Draw() {
     int colorNum = 1;
     Sprite sprite(tex1);
     sprite.setTextureRect(IntRect(0, 0, 18, 18));
-
-
 
     //Инициализация для таймера
     Clock clock;
