@@ -1,3 +1,6 @@
+#SFML-2.5.1
+!SFML-2.5.1/
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -44,17 +47,7 @@ $RECYCLE.BIN/
 mono_crash.*
 
 # Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-[Aa][Rr][Mm]/
-[Aa][Rr][Mm]64/
-bld/
-[Bb]in/
-[Oo]bj/
+*.*log
 [Ll]og/
 [Ll]ogs/
 
