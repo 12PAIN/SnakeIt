@@ -1,2 +1,0 @@
-E:\Study\SnakeIt\SnakeIt\Debug\SnakeIt.exe
-E:\Study\SnakeIt\SnakeIt\Debug\SnakeIt.pdb
