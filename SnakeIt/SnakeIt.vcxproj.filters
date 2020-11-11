@@ -18,5 +18,22 @@
     <ClCompile Include="SnakeIt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="clTetris.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="clSapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GlobalVars.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="clTetris.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="clSapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

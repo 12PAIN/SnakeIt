@@ -145,7 +145,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="clSapper.cpp" />
+    <ClCompile Include="clTetris.cpp" />
     <ClCompile Include="SnakeIt.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="clSapper.h" />
+    <ClInclude Include="clTetris.h" />
+    <ClInclude Include="GlobalVars.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
