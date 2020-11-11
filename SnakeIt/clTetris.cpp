@@ -42,6 +42,7 @@ void clTetris::Tetris(int WEIGHT, int HEIGHT, bool *restart) {
 
     //Спрайт кубиков
     int colorNum = 1 + rand() % 7;
+    int colorNum_now = colorNum;
     Sprite sprite(tex1);
     sprite.setTextureRect(IntRect(0, 0, 18, 18));
 
@@ -52,6 +53,7 @@ void clTetris::Tetris(int WEIGHT, int HEIGHT, bool *restart) {
 
     //Тип фигуры
     int n = rand() % 7;
+    int n_now = n;
 
     //Движение по горизонтали
     int dx = 0;
@@ -162,12 +164,15 @@ void clTetris::Tetris(int WEIGHT, int HEIGHT, bool *restart) {
                         field[b[i].y][b[i].x] = colorNum;
                     }
 
-                    colorNum = 1 + rand() % 7;
-                    n = rand() % 7;
+                    colorNum = colorNum_now;
+                    colorNum_now = 1 + rand() % 7;
+                    
+                    n = n_now;
                     for (int i = 0; i < 4; i++) {
-                        a[i].x = figures[n][i] % 2;
+                        a[i].x = figures[n][i] % 2 + 4;
                         a[i].y = figures[n][i] / 2;
                     }
+                    n_now = rand() % 7;
 
                 }
 
@@ -178,11 +183,13 @@ void clTetris::Tetris(int WEIGHT, int HEIGHT, bool *restart) {
             if (beginGame) {
 
                 beginGame = false;
-                n = rand() % 7;
+                n = n_now;
                 for (int i = 0; i < 4; i++) {
-                    a[i].x = figures[n][i] % 2;
+                    a[i].x = figures[n][i] % 2 + 4;
+
                     a[i].y = figures[n][i] / 2;
                 }
+                n_now = rand() % 7;
 
             }
 
@@ -239,13 +246,33 @@ void clTetris::Tetris(int WEIGHT, int HEIGHT, bool *restart) {
             }
         }
 
-        //Отрисовка текущей фигуры
-        for (int i = 0; i < 4; i++) {
-            sprite.setTextureRect(IntRect(colorNum * 18, 0, 18, 18));
-            sprite.setPosition(a[i].x * 18, a[i].y * 18);
-            sprite.move(45, 90);
-            window.draw(sprite);
+
+        if (!gameOver()) {
+            //Отрисовка текущей фигуры
+            for (int i = 0; i < 4; i++) {
+                sprite.setTextureRect(IntRect(colorNum * 18, 0, 18, 18));
+                sprite.setPosition(a[i].x * 18, a[i].y * 18);
+                sprite.move(45, 90);
+                window.draw(sprite);
+            }
         }
+
+        if (!gameOver()) {
+            //Отрисовка следующей фигуры
+            for (int i = 0; i < 4; i++) {
+                sprite.setTextureRect(IntRect(colorNum_now * 18, 0, 18, 18));
+                sprite.setPosition((figures[n_now][i] % 2) * 18, (figures[n_now][i] / 2 )* 18);
+                sprite.move(255, 120);
+                window.draw(sprite);
+            }
+        }
+
+        Text next("", font, 20);
+        next.setFillColor(Color::Black);
+        next.setStyle(Text::Bold | Text::Italic);
+        next.setString("Next figure: ");
+        next.setPosition(N * 18 + 60, 95);
+        window.draw(next);
 
         //Строка нужная для вывода таймера обратного отсчёта
         std::string str = "To close:";
@@ -257,13 +284,13 @@ void clTetris::Tetris(int WEIGHT, int HEIGHT, bool *restart) {
             text.setFillColor(Color::Red);
             text.setStyle(Text::Bold | Text::Underlined);
             text.setString("Game Over!");
-            text.setPosition(WEIGHT / 2, HEIGHT / 2);
+            text.setPosition(WEIGHT / 2 - 50, HEIGHT / 2 - 50);
 
             //Текст обратного отсчёта
             Text text1("", font, 20);
             text1.setFillColor(Color::Red);
             text1.setStyle(Text::Bold | Text::Underlined);
-            text1.setPosition(WEIGHT / 2, (HEIGHT / 2) + 32);
+            text1.setPosition(WEIGHT / 2 - 50, (HEIGHT / 2) + 32 - 50);
 
             //Обратный отсчёт
             if (timer_1 > 1.0) {
@@ -291,14 +318,14 @@ void clTetris::Tetris(int WEIGHT, int HEIGHT, bool *restart) {
         text2.setFillColor(Color::Black);
         text2.setStyle(Text::Bold | Text::Italic);
         text2.setString("To exit press ESC");
-        text2.setPosition(N * 18 + 5, 10);
+        text2.setPosition(N * 18 + 60, 10);
         window.draw(text2);
 
         Text text3("", font, 20);
         text3.setFillColor(Color::Black);
         text3.setStyle(Text::Bold | Text::Italic);
         text3.setString("To restart press R");
-        text3.setPosition(N * 18 + 5, 35);
+        text3.setPosition(N * 18 + 60, 35);
         window.draw(text3);
 
         //Текст счёта
