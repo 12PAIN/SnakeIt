@@ -2,7 +2,7 @@
 class clSapper {
 public:
 
-    void Sapper(int WEIGHT, int HEIGHT, bool* restart);
+    void Sapper(int WEIGHT, int HEIGHT);
 
 private:
 

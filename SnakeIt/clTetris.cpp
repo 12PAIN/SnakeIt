@@ -6,12 +6,20 @@
 
 using namespace sf;
 
-void clTetris::Tetris(int WEIGHT, int HEIGHT, bool *restart) {
+void clTetris::Tetris(int WIDTH, int HEIGHT) {
+
+run:
+
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            field[i][j] = 0;
+        }
+    }
 
     //Установка рандома
     srand(time(0));
 
-    RenderWindow window(VideoMode(WEIGHT, HEIGHT), "SnakeIt");
+    RenderWindow window(VideoMode(WIDTH, HEIGHT), "SnakeIt:Tetris");
 
     //Загрузка "сетки"
     Texture net_tex;
@@ -76,6 +84,8 @@ void clTetris::Tetris(int WEIGHT, int HEIGHT, bool *restart) {
     playerScore score;
     score.num = 0;
 
+    bool restart = 0;
+
 
     while (window.isOpen()) {
 
@@ -111,7 +121,7 @@ void clTetris::Tetris(int WEIGHT, int HEIGHT, bool *restart) {
                     window.close();
                 }
                 if (event.key.code == Keyboard::R) {
-                    *restart = 1;
+                    restart = 1;
                     window.close();
                 }
 
@@ -284,13 +294,13 @@ void clTetris::Tetris(int WEIGHT, int HEIGHT, bool *restart) {
             text.setFillColor(Color::Red);
             text.setStyle(Text::Bold | Text::Underlined);
             text.setString("Game Over!");
-            text.setPosition(WEIGHT / 2 - 50, HEIGHT / 2 - 50);
+            text.setPosition(WIDTH / 2 - 50, HEIGHT / 2 - 50);
 
             //Текст обратного отсчёта
             Text text1("", font, 20);
             text1.setFillColor(Color::Red);
             text1.setStyle(Text::Bold | Text::Underlined);
-            text1.setPosition(WEIGHT / 2 - 50, (HEIGHT / 2) + 32 - 50);
+            text1.setPosition(WIDTH / 2 - 50, (HEIGHT / 2) + 32 - 50);
 
             //Обратный отсчёт
             if (timer_1 > 1.0) {
@@ -339,6 +349,13 @@ void clTetris::Tetris(int WEIGHT, int HEIGHT, bool *restart) {
 
 
         window.display();
+        if (restart == 1) {
+            break;
+        }
+    }
+    if (restart == 1) {
+        restart = 0;
+        goto run;
     }
 };
 

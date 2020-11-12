@@ -5,13 +5,17 @@
 #include "GlobalVars.h"
 #include "clTetris.h"
 #include "clSapper.h"
+#include "menu.h"
 
 using namespace sf;
 
 int main() {
     
-    
+    clMenu menu;
 
+    menu.menu(WIDTH, HEIGHT);
+
+/*
 choice:
     int choice;
     std::cout << "List of games:" << std::endl;
@@ -70,6 +74,6 @@ choice:
     }
 
     
-  
+    */
     return 0;
 }

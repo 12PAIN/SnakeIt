@@ -6,8 +6,10 @@
 
 using namespace sf;
 
-void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
+void clSapper::Sapper(int WIDTH, int HEIGHT){
         
+run:    
+
         //Установка рандома
         srand(time(0));
 
@@ -17,7 +19,7 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
         background.loadFromFile("../Textures/background.png");
         Sprite bground(background);
 
-        RenderWindow window(VideoMode(WEIGHT, HEIGHT), "Sapper");
+        RenderWindow window(VideoMode(WIDTH, HEIGHT), "SnakeIt:Sapper");
 
         //Текстура
         Texture texture;
@@ -31,12 +33,14 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
         //таймер
         Clock clock;
         float timer = 0;
+        bool restart = 0;
 
 
         //Заполнение сетки отображения изначальным полем
         for (int i = 1; i <= 10; i++){
             for (int j = 1; j <= 10; j++){
                 gridView[i][j] = 10;
+                cubeIsOpen[i][j] = 0;
             }
         }
 
@@ -103,6 +107,8 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
             //Обработка событий
             Event event;
 
+            
+
             while (window.pollEvent(event)) {
                 if (event.type == Event::Closed) {
                     window.close();
@@ -112,8 +118,7 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
                         window.close();
                     }
                     if (event.key.code == Keyboard::R) {
-                        *restart = 1;
-                        window.close();
+                        restart = 1;
                     }
                 }
 
@@ -139,56 +144,61 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
 
             }
 
+            
 
             //Открытие всех пустых клеток при нажатии на одну из множества
             for (int i = 1; i <= 10; i++) {
                 for (int j = 1; j <= 10; j++) {
                     if (gridView[i][j] == 0 && cubeIsOpen[i][j] == 1) {
-                        if (gridLogic[i - 1][j - 1] == 0) {
-                            gridView[i - 1][j - 1] = 0;
+                        if (gridLogic[i - 1][j - 1] != 9) {
+                            gridView[i - 1][j - 1] = gridLogic[i - 1][j - 1];
                             cubeIsOpen[i - 1][j - 1] = 1;
                         }
 
-                        if (gridLogic[i - 1][j] == 0) {
-                            gridView[i - 1][j] = 0;
+                        if (gridLogic[i - 1][j] != 9) {
+                            gridView[i - 1][j] = gridLogic[i - 1][j];
                             cubeIsOpen[i - 1][j] = 1;
                         }
 
-                        if (gridLogic[i - 1][j + 1] == 0) {
-                            gridView[i - 1][j + 1] = 0;
+                        if (gridLogic[i - 1][j + 1] != 9) {
+                            gridView[i - 1][j + 1] = gridLogic[i - 1][j + 1];
                             cubeIsOpen[i - 1][j + 1] = 1;
                         }
 
 
-                        if (gridLogic[i][j - 1] == 0) {
-                            gridView[i][j - 1] = 0;
+                        if (gridLogic[i][j - 1] != 9) {
+                            gridView[i][j - 1] = gridLogic[i][j - 1];
                             cubeIsOpen[i][j - 1] = 1;
                         }
 
-                        if (gridLogic[i][j + 1] == 0) {
-                            gridView[i][j + 1] = 0;
+                        if (gridLogic[i][j + 1] != 9) {
+                            gridView[i][j + 1] = gridLogic[i][j + 1];
                             cubeIsOpen[i][j + 1] = 1;
                         }
 
 
-                        if (gridLogic[i + 1][j - 1] == 0) {
-                            gridView[i + 1][j - 1] = 0;
+                        if (gridLogic[i + 1][j - 1] != 9) {
+                            gridView[i + 1][j - 1] = gridLogic[i + 1][j - 1];
                             cubeIsOpen[i + 1][j - 1] = 1;
                         }
 
 
-                        if (gridLogic[i + 1][j] == 0) {
-                            gridView[i + 1][j] = 0;
+                        if (gridLogic[i + 1][j] != 9) {
+                            gridView[i + 1][j] = gridLogic[i + 1][j];
                             cubeIsOpen[i + 1][j] = 1;
                         }
 
-                        if (gridLogic[i + 1][j + 1] == 0) {
-                            gridView[i + 1][j + 1] = 0;
+                        if (gridLogic[i + 1][j + 1] !=9) {
+                            gridView[i + 1][j + 1] = gridLogic[i + 1][j + 1];
                             cubeIsOpen[i + 1][j + 1] = 1;
                         }
                     }
                 }
             }
+
+            
+
+
 
 
             //      !Отрисовка!
@@ -217,7 +227,7 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
                 text.setString("Game Over!");
                 text.setOutlineColor(Color::Black);
                 text.setOutlineThickness(2);
-                text.setPosition(WEIGHT / 2, HEIGHT / 2);
+                text.setPosition(WIDTH / 2, HEIGHT / 2);
 
                 //Текст обратного отсчёта
                 Text text1("", font, 20);
@@ -225,7 +235,7 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
                 text1.setStyle(Text::Bold | Text::Underlined);
                 text1.setOutlineColor(Color::Black);
                 text1.setOutlineThickness(2);
-                text1.setPosition(WEIGHT / 2, (HEIGHT / 2) + 32);
+                text1.setPosition(WIDTH / 2, (HEIGHT / 2) + 32);
 
                 //Обратный отсчёт
                 if (timer > 1.0) {
@@ -258,7 +268,7 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
                 text.setString("You Win!");
                 text.setOutlineColor(Color::Black);
                 text.setOutlineThickness(2);
-                text.setPosition(WEIGHT / 2, HEIGHT / 2);
+                text.setPosition(WIDTH / 2, HEIGHT / 2);
 
                 //Текст обратного отсчёта
                 Text text1("", font, 20);
@@ -266,7 +276,7 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
                 text1.setOutlineColor(Color::Black);
                 text1.setStyle(Text::Bold | Text::Underlined);
                 text1.setOutlineThickness(2);
-                text1.setPosition(WEIGHT / 2, (HEIGHT / 2) + 32);
+                text1.setPosition(WIDTH / 2, (HEIGHT / 2) + 32);
 
                 //Обратный отсчёт
                 if (timer > 1.0) {
@@ -305,6 +315,15 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
             window.draw(text3);
 
             window.display();
+
+            if (restart == 1) {
+                break;
+            }
+
+        }
+        if (restart == 1) {
+            restart = 0;
+            goto run;
         }
 
     };

@@ -2,7 +2,7 @@
 class clTetris {
 
 public:
-    void Tetris(int WEIGHT, int HEIGHT, bool *restart);
+    void Tetris(int WIDTH, int HEIGHT);
 private:
 
     static const int M = 20; // высота игрового поля
