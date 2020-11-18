@@ -10,25 +10,33 @@ using namespace sf;
 
 void clMenu::menu(int WIDTH, int HEIGHT) {
 
+	//Рендер окна
 	RenderWindow window(VideoMode(WIDTH, HEIGHT), "SnakeIt!");
 
+	//загрузка шрифта
 	Font font;
 	font.loadFromFile("../Font/Arial.ttf");
 	
+	//Загрузка текстуры фона
 	Texture bground;
 	bground.loadFromFile("../Textures/background.png");
 	Sprite background(bground);
 
+	//Переменная для открытия пункта меню
 	bool menu_dropdown = 0;
 
 	while (window.isOpen()) {
 
+		//Получение позиции мыши
 		Vector2i pos = Mouse::getPosition(window);
 
+		//Обработка событий
 		Event e;
 
-		
-		
+		Vector2i wind;
+		wind.x = window.getSize().x;
+		wind.y = window.getSize().y;
+
 		while (window.pollEvent(e)) {
 
 			if (e.type == Event::Closed) {
@@ -36,14 +44,16 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 			}
 
 
+
+			//Проверка нажата ли кнопка
 			if (menu_dropdown != 1) {
 				if (e.type == Event::MouseButtonPressed) {
 					if (e.key.code == Mouse::Left) {
-						if ((pos.x >= (window.getSize().x / 2.0 - 100)) && (pos.x <= (window.getSize().x / 2.0 + 100)) && (pos.y >= (window.getSize().y / 1.5 - 32.5)) && (pos.y <= (window.getSize().y / 1.5 + 32.5))) {
+						if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 1.5 - wind.y / 22.15)) && (pos.y <= (wind.y / 1.5 + wind.y / 22.15))) {
 							window.close();
 						}
 
-						if ((pos.x >= (window.getSize().x / 2.0 - 100)) && (pos.x <= (window.getSize().x / 2.0 + 100)) && (pos.y >= (window.getSize().y / 3. - 32.5)) && (pos.y <= (window.getSize().y / 3. + 32.5))) {
+						if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 3. - wind.y / 22.15)) && (pos.y <= (wind.y / 3. + wind.y / 22.15))) {
 							menu_dropdown = 1;
 						}
 					}
@@ -52,18 +62,21 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 			else {
 				if (e.type == Event::MouseButtonPressed) {
 					if (e.key.code == Mouse::Left) {
-						if ((pos.x >= (window.getSize().x / 2.0 - 100)) && (pos.x <= (window.getSize().x / 2.0 + 100)) && (pos.y >= (window.getSize().y / 1.2 - 32.5)) && (pos.y <= (window.getSize().y / 1.2 + 32.5))) {
-							window.close();
+						if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 1.2 - wind.y / 22.15)) && (pos.y <= (wind.y / 1.2 + wind.y / 22.15))) {
+							menu_dropdown = 0;
 						}
-						if ((pos.x >= (window.getSize().x / 2.0 - 100)) && (pos.x <= (window.getSize().x / 2.0 + 100)) && (pos.y >= (window.getSize().y / 3. - 32.5)) && (pos.y <= (window.getSize().y / 3. + 32.5))) {
+
+						if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 3. - wind.y / 22.15)) && (pos.y <= (wind.y / 3. + wind.y / 22.15))) {
 							clTetris tetris;
 							tetris.Tetris(WIDTH, HEIGHT);
 						}
 
-						if ((pos.x >= (window.getSize().x / 2.0 - 100)) && (pos.x <= (window.getSize().x / 2.0 + 100)) && (pos.y >= (window.getSize().y / 2. - 32.5)) && (pos.y <= (window.getSize().y / 2. + 32.5))) {
+						if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 2. - wind.y / 22.15)) && (pos.y <= (wind.y / 2. + wind.y / 22.15))) {
 							clSapper sapper;
 							sapper.Sapper(WIDTH, HEIGHT);
 						}
+
+						
 
 
 					}
@@ -110,6 +123,14 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 			FloatRect text_2_rect = text_2.getLocalBounds();
 			text_2.setOrigin(text_2_rect.left + text_2_rect.width / 2.0f, text_2_rect.top + text_2_rect.height / 2.0f);
 			text_2.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 1.5f));
+
+			if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 1.5 - wind.y / 22.15)) && (pos.y <= (wind.y / 1.5 + wind.y / 22.15))) {
+				btn_2.setOutlineColor(Color::Red);
+			}
+
+			if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 3. - wind.y / 22.15)) && (pos.y <= (wind.y / 3. + wind.y / 22.15))) {
+				btn_1.setOutlineColor(Color::Red);
+			}
 
 			window.draw(btn_1);
 			window.draw(text_1);
@@ -163,10 +184,25 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 			Text text_2("", font, 20);
 			text_2.setFillColor(Color::Black);
 			text_2.setStyle(Text::Bold);
-			text_2.setString("Exit");
+			text_2.setString("Return");
 			FloatRect text_2_rect = text_2.getLocalBounds();
 			text_2.setOrigin(text_2_rect.left + text_2_rect.width / 2.0f, text_2_rect.top + text_2_rect.height / 2.0f);
 			text_2.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 1.2f));
+
+
+			if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 1.2 - wind.y / 22.15)) && (pos.y <= (wind.y / 1.2 + wind.y / 22.15))) {
+				btn_2.setOutlineColor(Color::Red);
+			}
+
+			if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 3. - wind.y / 22.15)) && (pos.y <= (wind.y / 3. + wind.y / 22.15))) {
+				btn_1.setOutlineColor(Color::Red);
+			}
+
+			if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 2. - wind.y / 22.15)) && (pos.y <= (wind.y / 2. + wind.y / 22.15))) {
+				btn_3.setOutlineColor(Color::Red);
+			}
+
+
 
 			window.draw(btn_1);
 			window.draw(text_1);
