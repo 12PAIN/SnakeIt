@@ -1,17 +1,1 @@
-﻿  SnakeIt.cpp
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(20,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(58,1): warning C4305: 'initializing': truncation from 'double' to 'float'
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(114,1): warning C4305: '=': truncation from 'double' to 'float'
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(200,1): warning C4305: '=': truncation from 'double' to 'float'
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(232,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(232,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(244,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(244,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(253,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(253,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(380,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(546,44): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(546,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(639,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\SnakeIt.cpp(646,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  SnakeIt.vcxproj -> E:\Study\SnakeIt\SnakeIt\Debug\SnakeIt.exe
+﻿  SnakeIt.vcxproj -> C:\Users\Никита\Desktop\Study folder\SnakeIt\SnakeIt\Debug\SnakeIt.exe
