@@ -54,8 +54,6 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
         tex1.loadFromFile("../Textures/tex2.png");
     
         //Спрайт кубиков
-        int colorNum = 1 + rand() % 7;
-        int colorNum_now = colorNum;
         Sprite sprite(tex1);
         sprite.setTextureRect(IntRect(0, 0, 18, 18));
     
@@ -66,10 +64,30 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
     
         //Тип фигуры
         int n = rand() % 7;
-        int n_now = n;
+        int n_new = n;
+        int colorNum = 0;
+        int colorNum_new = 0;
+        
+        for (int i = 0; i < 7; i++) {
+            if (n == i) {
+                colorNum = i + 1;
+            }
+        }
+
+        for (int i = 0; i < 7; i++) {
+            if (n_new == i) {
+                colorNum_new = i + 1;
+            }
+        }
+
+        
+
+
     
         //Движение по горизонтали
         int dx = 0;
+
+        float dy = 0.3;
     
         //Поворот
         bool rotate = 0;
@@ -196,39 +214,68 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
                             field[b[i].y][b[i].x] = colorNum;
                         }
     
-                        colorNum = colorNum_now;
-                        colorNum_now = 1 + rand() % 7;
-    
-                        n = n_now;
+                        n = n_new;
+
+                        for (int i = 0; i < 7; i++) {
+                            if (n == i) {
+                                colorNum = i + 1;
+                            }
+                        }
+
                         for (int i = 0; i < 4; i++) {
                             a[i].x = figures[n][i] % 2 + 4;
                             a[i].y = figures[n][i] / 2;
                         }
-                        n_now = rand() % 7;
+                        n_new = rand() % 7;
+                        for (int i = 0; i < 7; i++) {
+                            if (n_new == i) {
+                                colorNum_new = i + 1;
+                            }
+                        }
     
                     }
     
                     timer = 0;
                 }
-    
+
+                if(score.num < 2000)
+                    dy = 0.3 - 0.04*(score.num / 500);
+                if(score.num >= 2000)
+                    dy = 0.22 - 0.02 * (score.num / 1000);
+
                 //Создание первых кубиков
                 if (beginGame) {
     
                     beginGame = false;
-                    n = n_now;
+
+                    n = n_new;
+
+                    for (int i = 0; i < 7; i++) {
+                        if (n == i) {
+                            colorNum = i + 1;
+                        }
+                    }
+
                     for (int i = 0; i < 4; i++) {
                         a[i].x = figures[n][i] % 2 + 4;
     
                         a[i].y = figures[n][i] / 2;
                     }
-                    n_now = rand() % 7;
+
+                    n_new = rand() % 7;
+
+                    for (int i = 0; i < 7; i++) {
+                        if (n_new == i) {
+                            colorNum_new = i + 1;
+                        }
+                    }
     
                 }
     
                 //Обнуление используемых значений
                 dx = 0;
                 rotate = 0;
-                delay = 0.3;
+                delay = dy;
     
 
                 //для записи строк для проверки какие строки убраны
@@ -318,8 +365,8 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
             if (!gameOver()) {
                 //Отрисовка следующей фигуры
                 for (int i = 0; i < 4; i++) {
-                    sprite.setTextureRect(IntRect(colorNum_now * 18, 0, 18, 18));
-                    sprite.setPosition((figures[n_now][i] % 2) * 18, (figures[n_now][i] / 2) * 18);
+                    sprite.setTextureRect(IntRect(colorNum_new * 18, 0, 18, 18));
+                    sprite.setPosition((figures[n_new][i] % 2) * 18, (figures[n_new][i] / 2) * 18);
                     sprite.move(255, 120);
                     window.draw(sprite);
                 }
