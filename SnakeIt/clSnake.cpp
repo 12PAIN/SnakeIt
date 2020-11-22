@@ -3,6 +3,7 @@
 #include<time.h>
 
 using namespace sf;
+
 int SIZE = 30;
 int vx = SIZE * SIZE;
 int vy = SIZE * 15;
@@ -46,13 +47,19 @@ int main()
 {
 	RenderWindow window(VideoMode(vx, vy), "Snake The Game");
 	RectangleShape block;
+	RectangleShape blockSnake;
 
 	Clock clock;
 	float chrono = 0;
 	float delay = 0.1;
 
+	blockSnake.setSize(Vector2f(SIZE, SIZE));
+	blockSnake.setFillColor(Color::Green);// Цвет клетки 
+	blockSnake.setOutlineThickness(1);// Толщина линий 
+	blockSnake.setOutlineColor(Color::White);// Цвет линий 
+
 	block.setSize(Vector2f(SIZE, SIZE));
-	block.setFillColor(Color::Black);// Цвет фона
+	block.setFillColor(Color::Black);// Цвет клетки
 	block.setOutlineThickness(1);// Толщина линий 
 	block.setOutlineColor(Color::White);// Цвет линий 
 
