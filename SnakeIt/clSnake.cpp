@@ -6,6 +6,7 @@
 #include<random>
 
 using namespace sf;
+
 int SIZE = 30;
 int vx = SIZE * SIZE;
 int vy = SIZE * 15;
@@ -54,6 +55,43 @@ void gameAction()
 		num++;
 		apple.x = rand() % 30;
 		apple.y = rand() % 15;
+	}
+
+	if (snake[0].x > 30)
+	{
+		snake[0].x = 0;
+		snake[0].y = 0;
+		num = 3;
+	}
+	if (snake[0].y > 15)
+	{
+		snake[0].x = 0;
+		snake[0].y = 0;
+		num = 3;
+	}
+
+	if (snake[0].x < 0)
+	{
+		snake[0].x = 0;
+		snake[0].y = 0;
+		num = 3;
+	}
+
+	if (snake[0].y < 0)
+	{
+		snake[0].x = 0;
+		snake[0].y = 0;
+		num = 3;
+	}
+
+	for (int i = 1; i < num; i++)
+	{
+		if (snake[0].x == snake[i].x && snake[0].y == snake[i].y)
+		{
+			snake[0].x = 0;
+			snake[0].y = 0;
+			num = 3;
+		}
 	}
 }
 
