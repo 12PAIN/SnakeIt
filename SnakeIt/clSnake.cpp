@@ -1,16 +1,23 @@
 #include <SFML/Graphics.hpp>
 #include<iostream>
 #include<time.h>
+#include<ctime>
+#include<cstdlib>
+#include<random>
 
 using namespace sf;
-
 int SIZE = 30;
 int vx = SIZE * SIZE;
 int vy = SIZE * 15;
 int horizontalline = 30;
 int verticalline = 15;
-int direction = 1;
+int direction = 2;
 int num = 3;
+
+struct
+{
+	int x, y;
+}apple;
 
 struct Snake
 {
@@ -41,13 +48,22 @@ void gameAction()
 	{
 		snake[0].y -= 1;
 	}
+
+	if ((snake[0].x == apple.x) && (snake[0].y == apple.y))
+	{
+		num++;
+		apple.x = rand() % 30;
+		apple.y = rand() % 15;
+	}
 }
 
 int main()
 {
+	srand(time(NULL));
 	RenderWindow window(VideoMode(vx, vy), "Snake The Game");
 	RectangleShape block;
 	RectangleShape blockSnake;
+	RectangleShape blockApple;
 
 	Clock clock;
 	float chrono = 0;
@@ -63,6 +79,14 @@ int main()
 	block.setOutlineThickness(1);// Толщина линий 
 	block.setOutlineColor(Color::White);// Цвет линий 
 
+	blockApple.setSize(Vector2f(SIZE, SIZE));
+	blockApple.setFillColor(Color::Red);// Цвет клетки
+	blockApple.setOutlineThickness(1);// Толщина линий 
+	blockApple.setOutlineColor(Color::White);// Цвет линий 
+
+	apple.x = rand() % 30;
+	apple.y = rand() % 15;
+
 	while (window.isOpen())
 	{
 		float time = clock.getElapsedTime().asSeconds();
@@ -75,6 +99,26 @@ int main()
 			{
 				window.close();
 			}
+
+
+			if (Keyboard::isKeyPressed(Keyboard::Down))
+			{
+				direction = 0;
+			}
+			if (Keyboard::isKeyPressed(Keyboard::Left))
+			{
+				direction = 1;
+			}
+			if (Keyboard::isKeyPressed(Keyboard::Right))
+			{
+				direction = 2;
+			}
+			if (Keyboard::isKeyPressed(Keyboard::Up))
+			{
+				direction = 3;
+			}
+
+
 			if (chrono > delay)
 			{
 				chrono = 0;
@@ -90,7 +134,13 @@ int main()
 					window.draw(block);
 				}
 			}
-
+			for (int i = 0; i < num; i++)
+			{
+				blockSnake.setPosition(snake[i].x * SIZE, snake[i].y * SIZE);
+				window.draw(blockSnake);
+			}
+			blockApple.setPosition(apple.x * SIZE, apple.y * SIZE);
+			window.draw(blockApple);
 			window.display();
 		}
 	}
