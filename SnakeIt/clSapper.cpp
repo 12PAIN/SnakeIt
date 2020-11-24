@@ -6,8 +6,16 @@
 
 using namespace sf;
 
-void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
+void clSapper::Sapper(int WIDTH, int HEIGHT){
         
+    bool restart = 0;
+
+    do {
+
+        if (restart == 1) {
+            restart = 0;
+        }
+
         //Установка рандома
         srand(time(0));
 
@@ -17,7 +25,7 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
         background.loadFromFile("../Textures/background.png");
         Sprite bground(background);
 
-        RenderWindow window(VideoMode(WEIGHT, HEIGHT), "Sapper");
+        RenderWindow window(VideoMode(WIDTH, HEIGHT), "SnakeIt:Sapper");
 
         //Текстура
         Texture texture;
@@ -33,10 +41,12 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
         float timer = 0;
 
 
+
         //Заполнение сетки отображения изначальным полем
-        for (int i = 1; i <= 10; i++){
-            for (int j = 1; j <= 10; j++){
+        for (int i = 1; i <= 10; i++) {
+            for (int j = 1; j <= 10; j++) {
                 gridView[i][j] = 10;
+                cubeIsOpen[i][j] = 0;
             }
         }
 
@@ -92,16 +102,25 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
             clock.restart();
             timer += time;
 
-            //Получение координат мыши
-            Vector2i pos = Mouse::getPosition(window);
 
-            //Обработка для программы этих же координат
-            int x = (pos.x -416)/ w;
-            int y = (pos.y -160)/ w;
 
 
             //Обработка событий
             Event event;
+
+            //Получение размера окна
+            Vector2i wind;
+            wind.x = window.getSize().x;
+            wind.y = window.getSize().y;
+
+            //Получение координат мыши
+            Vector2i pos = Mouse::getPosition(window);
+
+            //Обработка для программы этих же координат
+            int x = (pos.x - wind.x / 3.0769) / (wind.x / 40);
+            int y = (pos.y - wind.y / 4.5) / (wind.y / 22.5);
+
+
 
             while (window.pollEvent(event)) {
                 if (event.type == Event::Closed) {
@@ -112,83 +131,101 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
                         window.close();
                     }
                     if (event.key.code == Keyboard::R) {
-                        *restart = 1;
-                        window.close();
+                        restart = 1;
                     }
                 }
 
-                if (event.type == Event::MouseButtonPressed && gameOvervar != 1 && winVar != 1) {
-                    if (event.key.code == Mouse::Left) {
+                if (event.type == Event::MouseButtonPressed) {
+                    if (event.key.code == Mouse::Left && gameOvervar != 1 && winVar != 1) {
 
                         //стоит ли флажок?
                         if (gridView[x][y] != 11) {
                             gridView[x][y] = gridLogic[x][y];
                             cubeIsOpen[x][y] = 1;
                         }
+
                     }
-                    if (event.key.code == Mouse::Right) {
+
+                    if (event.key.code == Mouse::Left) {
+
+                        if ((pos.x >= ((wind.x / 2.0 - wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 - wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
+                            restart = 1;
+
+                        }
+
+                        if ((pos.x >= ((wind.x / 2.0 + wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 + wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
+                            window.close();
+                        }
+                    }
+
+                    if (event.key.code == Mouse::Right && gameOvervar != 1 && winVar != 1 ) {
 
                         //Установка или снятие флажка
-                        if(gridView[x][y] == 10) gridView[x][y] = 11;
-                        else if(gridView[x][y] == 11) gridView[x][y] = 10;
+                        if (gridView[x][y] == 10) gridView[x][y] = 11;
+                        else if (gridView[x][y] == 11) gridView[x][y] = 10;
 
-                        
+
                     }
 
                 }
 
             }
+
 
 
             //Открытие всех пустых клеток при нажатии на одну из множества
             for (int i = 1; i <= 10; i++) {
                 for (int j = 1; j <= 10; j++) {
                     if (gridView[i][j] == 0 && cubeIsOpen[i][j] == 1) {
-                        if (gridLogic[i - 1][j - 1] == 0) {
-                            gridView[i - 1][j - 1] = 0;
+                        if (gridLogic[i - 1][j - 1] != 9) {
+                            gridView[i - 1][j - 1] = gridLogic[i - 1][j - 1];
                             cubeIsOpen[i - 1][j - 1] = 1;
                         }
 
-                        if (gridLogic[i - 1][j] == 0) {
-                            gridView[i - 1][j] = 0;
+                        if (gridLogic[i - 1][j] != 9) {
+                            gridView[i - 1][j] = gridLogic[i - 1][j];
                             cubeIsOpen[i - 1][j] = 1;
                         }
 
-                        if (gridLogic[i - 1][j + 1] == 0) {
-                            gridView[i - 1][j + 1] = 0;
+                        if (gridLogic[i - 1][j + 1] != 9) {
+                            gridView[i - 1][j + 1] = gridLogic[i - 1][j + 1];
                             cubeIsOpen[i - 1][j + 1] = 1;
                         }
 
 
-                        if (gridLogic[i][j - 1] == 0) {
-                            gridView[i][j - 1] = 0;
+                        if (gridLogic[i][j - 1] != 9) {
+                            gridView[i][j - 1] = gridLogic[i][j - 1];
                             cubeIsOpen[i][j - 1] = 1;
                         }
 
-                        if (gridLogic[i][j + 1] == 0) {
-                            gridView[i][j + 1] = 0;
+                        if (gridLogic[i][j + 1] != 9) {
+                            gridView[i][j + 1] = gridLogic[i][j + 1];
                             cubeIsOpen[i][j + 1] = 1;
                         }
 
 
-                        if (gridLogic[i + 1][j - 1] == 0) {
-                            gridView[i + 1][j - 1] = 0;
+                        if (gridLogic[i + 1][j - 1] != 9) {
+                            gridView[i + 1][j - 1] = gridLogic[i + 1][j - 1];
                             cubeIsOpen[i + 1][j - 1] = 1;
                         }
 
 
-                        if (gridLogic[i + 1][j] == 0) {
-                            gridView[i + 1][j] = 0;
+                        if (gridLogic[i + 1][j] != 9) {
+                            gridView[i + 1][j] = gridLogic[i + 1][j];
                             cubeIsOpen[i + 1][j] = 1;
                         }
 
-                        if (gridLogic[i + 1][j + 1] == 0) {
-                            gridView[i + 1][j + 1] = 0;
+                        if (gridLogic[i + 1][j + 1] != 9) {
+                            gridView[i + 1][j + 1] = gridLogic[i + 1][j + 1];
                             cubeIsOpen[i + 1][j + 1] = 1;
                         }
                     }
                 }
             }
+
+
+
+
 
 
             //      !Отрисовка!
@@ -206,7 +243,7 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
                 }
             }
 
-            
+
             //Текст если проиграл
             if (gameOvervar == 1) {
 
@@ -216,8 +253,10 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
                 text.setStyle(Text::Bold | Text::Underlined);
                 text.setString("Game Over!");
                 text.setOutlineColor(Color::Black);
+                FloatRect text_rect = text.getLocalBounds();
+                text.setOrigin(text_rect.left + text_rect.width / 2.0f, text_rect.top + text_rect.height / 2.0f);
                 text.setOutlineThickness(2);
-                text.setPosition(WEIGHT / 2, HEIGHT / 2);
+                text.setPosition(WIDTH / 2, HEIGHT / 2);
 
                 //Текст обратного отсчёта
                 Text text1("", font, 20);
@@ -225,7 +264,7 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
                 text1.setStyle(Text::Bold | Text::Underlined);
                 text1.setOutlineColor(Color::Black);
                 text1.setOutlineThickness(2);
-                text1.setPosition(WEIGHT / 2, (HEIGHT / 2) + 32);
+
 
                 //Обратный отсчёт
                 if (timer > 1.0) {
@@ -236,6 +275,10 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
                 //Корректирока секунд обратного отсчёта в реальном времени
                 str = "To close:" + std::to_string(countDeath);
                 text1.setString(str);
+                FloatRect text1_rect = text1.getLocalBounds();
+                text1.setOrigin(text1_rect.left + text1_rect.width / 2.0f, text1_rect.top + text1_rect.height / 2.0f);
+                text1.setPosition(WIDTH / 2, (HEIGHT / 2) + 32);
+
                 window.draw(text1);
                 window.draw(text);
 
@@ -256,17 +299,21 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
                 text.setFillColor(Color::Green);
                 text.setStyle(Text::Bold | Text::Underlined);
                 text.setString("You Win!");
+                FloatRect text_rect = text.getLocalBounds();
+                text.setOrigin(text_rect.left + text_rect.width / 2.0f, text_rect.top + text_rect.height / 2.0f);
                 text.setOutlineColor(Color::Black);
                 text.setOutlineThickness(2);
-                text.setPosition(WEIGHT / 2, HEIGHT / 2);
+                text.setPosition(WIDTH / 2, HEIGHT / 2);
 
                 //Текст обратного отсчёта
                 Text text1("", font, 20);
                 text1.setFillColor(Color::Green);
                 text1.setOutlineColor(Color::Black);
+                FloatRect text1_rect = text1.getLocalBounds();
+                text1.setOrigin(text1_rect.left + text1_rect.width / 2.0f, text1_rect.top + text1_rect.height / 2.0f);
                 text1.setStyle(Text::Bold | Text::Underlined);
                 text1.setOutlineThickness(2);
-                text1.setPosition(WEIGHT / 2, (HEIGHT / 2) + 32);
+                text1.setPosition(WIDTH / 2, (HEIGHT / 2) + 32);
 
                 //Обратный отсчёт
                 if (timer > 1.0) {
@@ -289,23 +336,64 @@ void clSapper::Sapper(int WEIGHT, int HEIGHT, bool* restart){
 
             }
 
-            //Информационные тексты
-            Text text2("", font, 20);
-            text2.setFillColor(Color::Black);
-            text2.setStyle(Text::Bold | Text::Italic);
-            text2.setString("To exit press ESC");
-            text2.setPosition(350 + 5*w, 110);
-            window.draw(text2);
 
-            Text text3("", font, 20);
-            text3.setFillColor(Color::Black);
-            text3.setStyle(Text::Bold | Text::Italic);
-            text3.setString("To restart press R");
-            text3.setPosition(350 + 5 * w , 145);
-            window.draw(text3);
+            //Кнопки
+            RectangleShape btn_1(Vector2f(200, 65));
+            btn_1.setFillColor(Color(220, 220, 220));
+            FloatRect btn_1_rect = btn_1.getLocalBounds();
+            btn_1.setOrigin(btn_1_rect.left + btn_1_rect.width / 2.0f, btn_1_rect.top + btn_1_rect.height / 2.0f);
+            btn_1.setPosition(Vector2f(WIDTH / 2.0f - WIDTH / 8.5333f, HEIGHT - HEIGHT / 4.2352f));
+            btn_1.setOutlineColor(Color(110, 110, 110));
+            btn_1.setOutlineThickness(2);
+
+            Text text_1("", font, 20);
+            text_1.setFillColor(Color::Black);
+            text_1.setStyle(Text::Bold);
+            text_1.setString("Restart");
+            FloatRect text_1_rect = text_1.getLocalBounds();
+            text_1.setOrigin(text_1_rect.left + text_1_rect.width / 2.0f, text_1_rect.top + text_1_rect.height / 2.0f);
+            text_1.setPosition(Vector2f(WIDTH / 2.0f - WIDTH / 8.5333f, HEIGHT - HEIGHT / 4.2352f));
+
+
+            RectangleShape btn_2(Vector2f(200, 65));
+            btn_2.setFillColor(Color(220, 220, 220));
+            FloatRect btn_2_rect = btn_2.getLocalBounds();
+            btn_2.setOrigin(btn_2_rect.left + btn_2_rect.width / 2.0f, btn_2_rect.top + btn_2_rect.height / 2.0f);
+            btn_2.setPosition(Vector2f(WIDTH / 2.0f + WIDTH / 8.5333f, HEIGHT - HEIGHT / 4.2352f));
+            btn_2.setOutlineColor(Color(110, 110, 110));
+            btn_2.setOutlineThickness(2);
+
+            Text text_2("", font, 20);
+            text_2.setFillColor(Color::Black);
+            text_2.setStyle(Text::Bold);
+            text_2.setString("Exit");
+            FloatRect text_2_rect = text_2.getLocalBounds();
+            text_2.setOrigin(text_2_rect.left + text_2_rect.width / 2.0f, text_2_rect.top + text_2_rect.height / 2.0f);
+            text_2.setPosition(Vector2f(WIDTH / 2.0f + WIDTH / 8.5333f, HEIGHT - HEIGHT / 4.2352f));
+
+            if ((pos.x >= ((wind.x / 2.0 - wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 - wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
+                btn_1.setOutlineColor(Color::Red);
+            }
+
+            if ((pos.x >= ((wind.x / 2.0 + wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 + wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
+                btn_2.setOutlineColor(Color::Red);
+            }
+
+
+            window.draw(btn_1);
+            window.draw(text_1);
+            window.draw(btn_2);
+            window.draw(text_2);
 
             window.display();
+
+            if (restart == 1) {
+                break;
+            }
+
         }
+    }while (restart == 1);
+        
 
     };
 
