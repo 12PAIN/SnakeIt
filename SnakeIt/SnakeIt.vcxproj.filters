@@ -44,7 +44,7 @@
     <ClInclude Include="menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="slSnake.h">
+    <ClInclude Include="clSnake.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

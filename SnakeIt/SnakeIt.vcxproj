@@ -156,7 +156,7 @@
     <ClInclude Include="clTetris.h" />
     <ClInclude Include="GlobalVars.h" />
     <ClInclude Include="menu.h" />
-    <ClInclude Include="slSnake.h" />
+    <ClInclude Include="clSnake.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

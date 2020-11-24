@@ -8,7 +8,13 @@ using namespace sf;
 
 void clSapper::Sapper(int WIDTH, int HEIGHT){
         
-run:    
+    bool restart = 0;
+
+    do {
+
+        if (restart == 1) {
+            restart = 0;
+        }
 
         //Установка рандома
         srand(time(0));
@@ -33,12 +39,12 @@ run:
         //таймер
         Clock clock;
         float timer = 0;
-        bool restart = 0;
+
 
 
         //Заполнение сетки отображения изначальным полем
-        for (int i = 1; i <= 10; i++){
-            for (int j = 1; j <= 10; j++){
+        for (int i = 1; i <= 10; i++) {
+            for (int j = 1; j <= 10; j++) {
                 gridView[i][j] = 10;
                 cubeIsOpen[i][j] = 0;
             }
@@ -96,7 +102,7 @@ run:
             clock.restart();
             timer += time;
 
-            
+
 
 
             //Обработка событий
@@ -111,10 +117,10 @@ run:
             Vector2i pos = Mouse::getPosition(window);
 
             //Обработка для программы этих же координат
-            int x = (pos.x - wind.x / 3.0769)/ (wind.x / 40);
-            int y = (pos.y - wind.y / 4.5)/ (wind.y / 22.5);
+            int x = (pos.x - wind.x / 3.0769) / (wind.x / 40);
+            int y = (pos.y - wind.y / 4.5) / (wind.y / 22.5);
 
-            
+
 
             while (window.pollEvent(event)) {
                 if (event.type == Event::Closed) {
@@ -129,8 +135,8 @@ run:
                     }
                 }
 
-                if (event.type == Event::MouseButtonPressed && gameOvervar != 1 && winVar != 1) {
-                    if (event.key.code == Mouse::Left) {
+                if (event.type == Event::MouseButtonPressed) {
+                    if (event.key.code == Mouse::Left && gameOvervar != 1 && winVar != 1) {
 
                         //стоит ли флажок?
                         if (gridView[x][y] != 11) {
@@ -138,30 +144,34 @@ run:
                             cubeIsOpen[x][y] = 1;
                         }
 
+                    }
+
+                    if (event.key.code == Mouse::Left) {
+
                         if ((pos.x >= ((wind.x / 2.0 - wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 - wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
                             restart = 1;
-                            window.close();
+
                         }
 
                         if ((pos.x >= ((wind.x / 2.0 + wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 + wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
                             window.close();
                         }
-
                     }
-                    if (event.key.code == Mouse::Right) {
+
+                    if (event.key.code == Mouse::Right && gameOvervar != 1 && winVar != 1 ) {
 
                         //Установка или снятие флажка
-                        if(gridView[x][y] == 10) gridView[x][y] = 11;
-                        else if(gridView[x][y] == 11) gridView[x][y] = 10;
+                        if (gridView[x][y] == 10) gridView[x][y] = 11;
+                        else if (gridView[x][y] == 11) gridView[x][y] = 10;
 
-                        
+
                     }
 
                 }
 
             }
 
-            
+
 
             //Открытие всех пустых клеток при нажатии на одну из множества
             for (int i = 1; i <= 10; i++) {
@@ -205,7 +215,7 @@ run:
                             cubeIsOpen[i + 1][j] = 1;
                         }
 
-                        if (gridLogic[i + 1][j + 1] !=9) {
+                        if (gridLogic[i + 1][j + 1] != 9) {
                             gridView[i + 1][j + 1] = gridLogic[i + 1][j + 1];
                             cubeIsOpen[i + 1][j + 1] = 1;
                         }
@@ -213,7 +223,7 @@ run:
                 }
             }
 
-            
+
 
 
 
@@ -233,7 +243,7 @@ run:
                 }
             }
 
-            
+
             //Текст если проиграл
             if (gameOvervar == 1) {
 
@@ -254,7 +264,7 @@ run:
                 text1.setStyle(Text::Bold | Text::Underlined);
                 text1.setOutlineColor(Color::Black);
                 text1.setOutlineThickness(2);
-                
+
 
                 //Обратный отсчёт
                 if (timer > 1.0) {
@@ -382,10 +392,8 @@ run:
             }
 
         }
-        if (restart == 1) {
-            restart = 0;
-            goto run;
-        }
+    }while (restart == 1);
+        
 
     };
 

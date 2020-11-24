@@ -10,6 +10,7 @@ private:
 
     //Логическая часть поля
     int field[M][N] = { 0 };
+    bool beginGame_1;
 
     int figures[7][4] =
     {
