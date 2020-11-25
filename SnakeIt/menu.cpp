@@ -3,6 +3,7 @@
 #include <time.h>
 #include <string>
 #include "clTetris.h"
+#include "clSnake.h"
 #include "clSapper.h"
 #include "menu.h"
 
@@ -76,6 +77,14 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 							sapper.Sapper(WIDTH, HEIGHT);
 						}
 
+						if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 5.5 - wind.y / 22.15)) && (pos.y <= (wind.y / 5.5 + wind.y / 22.15))) {
+							clSnake snake;
+							snake.Snake(WIDTH, HEIGHT);
+						}
+
+						if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 1.5 - wind.y / 22.15)) && (pos.y <= (wind.y / 1.5 + wind.y / 22.15))) {
+							
+						}
 						
 
 
@@ -156,6 +165,38 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 			text_1.setOrigin(text_1_rect.left + text_1_rect.width / 2.0f, text_1_rect.top + text_1_rect.height / 2.0f);
 			text_1.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 3.0f));
 
+			RectangleShape btn_4(Vector2f(200, 65));
+			btn_4.setFillColor(Color(220, 220, 220));
+			FloatRect btn_4_rect = btn_4.getLocalBounds();
+			btn_4.setOrigin(btn_4_rect.left + btn_4_rect.width / 2.0f, btn_4_rect.top + btn_4_rect.height / 2.0f);
+			btn_4.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 5.5f));
+			btn_4.setOutlineColor(Color(110, 110, 110));
+			btn_4.setOutlineThickness(2);
+
+			Text text_4("", font, 20);
+			text_4.setFillColor(Color::Black);
+			text_4.setStyle(Text::Bold);
+			text_4.setString("Snake The Game");
+			FloatRect text_4_rect = text_4.getLocalBounds();
+			text_4.setOrigin(text_4_rect.left + text_4_rect.width / 2.0f, text_4_rect.top + text_4_rect.height / 2.0f);
+			text_4.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 5.5f));
+
+			RectangleShape btn_5(Vector2f(200, 65));
+			btn_5.setFillColor(Color(220, 220, 220));
+			FloatRect btn_5_rect = btn_5.getLocalBounds();
+			btn_5.setOrigin(btn_5_rect.left + btn_5_rect.width / 2.0f, btn_5_rect.top + btn_5_rect.height / 2.0f);
+			btn_5.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 1.5f));
+			btn_5.setOutlineColor(Color(110, 110, 110));
+			btn_5.setOutlineThickness(2);
+
+			Text text_5("", font, 20);
+			text_5.setFillColor(Color::Black);
+			text_5.setStyle(Text::Bold);
+			text_5.setString("Race Game");
+			FloatRect text_5_rect = text_5.getLocalBounds();
+			text_5.setOrigin(text_5_rect.left + text_5_rect.width / 2.0f, text_5_rect.top + text_5_rect.height / 2.0f);
+			text_5.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 1.5f));
+
 			RectangleShape btn_3(Vector2f(200, 65));
 			btn_3.setFillColor(Color(220, 220, 220));
 			FloatRect btn_3_rect = btn_3.getLocalBounds();
@@ -202,6 +243,14 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 				btn_3.setOutlineColor(Color::Red);
 			}
 
+			if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 5.5 - wind.y / 22.15)) && (pos.y <= (wind.y / 5.5 + wind.y / 22.15))) {
+				btn_4.setOutlineColor(Color::Red);
+			}
+
+			if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 1.5 - wind.y / 22.15)) && (pos.y <= (wind.y / 1.5 + wind.y / 22.15))) {
+				btn_5.setOutlineColor(Color::Red);
+			}
+
 
 
 			window.draw(btn_1);
@@ -210,6 +259,11 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 			window.draw(text_2);
 			window.draw(btn_3);
 			window.draw(text_3);
+			window.draw(btn_4);
+			window.draw(text_4);
+			window.draw(btn_5);
+			window.draw(text_5);
+			
 
 		}
 		

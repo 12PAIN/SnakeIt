@@ -17,13 +17,11 @@ private:
     int num = 3;
     bool gameOver = 0;
     bool restart;
-
+    
     struct Snake
     {
         int x, y;
     } snake[100];
-
-    
 
     struct
     {

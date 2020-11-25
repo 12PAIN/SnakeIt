@@ -2,6 +2,7 @@
 #include<iostream>
 #include<time.h>
 #include "clSnake.h"
+#include <Windows.h>
 #include <string>
 
 
@@ -17,24 +18,31 @@ void clSnake::gameAction()
 		snake[i].x = snake[i - 1].x;
 		snake[i].y = snake[i - 1].y;
 	}
+	if (gameOver != 1) {
+		if (direction == 0)
+		{
+			snake[0].y += 1;
+			Sleep(50);
+		}
+		else if (direction == 1)
+		{
+			snake[0].x -= 1;
+			Sleep(50);
+		}
+		else if (direction == 2)
+		{
+			snake[0].x += 1;
+			Sleep(50);
+		}
+		else if (direction == 3)
+		{
+			snake[0].y -= 1;
+			Sleep(50);
+		}
+	}
+	else {
 
-	if (direction == 0)
-	{
-		snake[0].y += 1;
 	}
-	else if (direction == 1)
-	{
-		snake[0].x -= 1;
-	}
-	else if (direction == 2)
-	{
-		snake[0].x += 1;
-	}
-	else if (direction == 3)
-	{
-		snake[0].y -= 1;
-	}
-
 	if ((snake[0].x == apple.x) && (snake[0].y == apple.y))
 	{
 		num++;
@@ -42,51 +50,55 @@ void clSnake::gameAction()
 		apple.y = rand() % 15;
 	}
 
-	if (snake[0].x > 30)
-	{
-		snake[0].x = 15;
-		snake[0].y = 7;
-		num = 3;
-	}
-	if (snake[0].y > 15)
+	if (snake[0].x >= 30)
 	{
 		gameOver = 1;
-		num = 3;
+		
+	}
+	if (snake[0].y >= 15)
+	{
+		gameOver = 1;
+		
 	}
 
 	if (snake[0].x < 0)
 	{
-		snake[0].x = 15;
-		snake[0].y = 7;
-		num = 3;
+		gameOver = 1;
+		
 	}
 
 	if (snake[0].y < 0)
 	{
-		snake[0].x = 15;
-		snake[0].y = 7;
-		num = 3;
+		gameOver = 1;
+		
 	}
 
 	for (int i = 1; i < num; i++)
 	{
 		if (snake[0].x == snake[i].x && snake[0].y == snake[i].y)
 		{
-			snake[0].x = 15;
-			snake[0].y = 7;
-			num = 3;
+			gameOver = 1;
+			
 		}
 	}
 }
 
 void clSnake::Snake(int WIDTH, int HEIGHT)
 {
+
 	restart = 0; gameOver = 0;
 	do {
+
+		for (int i = 0; i < 100; i++) {
+			snake[i].x = 15;
+			snake[i].y = 7;
+		}
+		num = 3;
 
 		bool beginGame = 1;
 
 		if (restart == 1) {
+			
 			snake[0].x = 15;
 			snake[0].y = 7;
 			num = 3;
@@ -124,6 +136,19 @@ void clSnake::Snake(int WIDTH, int HEIGHT)
 		blockApple.setOutlineThickness(1);// Толщина линий 
 		blockApple.setOutlineColor(Color::White);// Цвет линий 
 
+		bool checkApple = 1;
+
+		apple.x = rand() % 30;
+		apple.y = rand() % 15;
+
+		for (int i = 0; i < 100; i++) {
+			if (apple.x == snake[i].x && snake[i].y == apple.y) {
+				apple.x = rand() % 30;
+				apple.y = rand() % 15;
+			}
+		}
+
+
 		apple.x = rand() % 30;
 		apple.y = rand() % 15;
 
@@ -160,18 +185,31 @@ void clSnake::Snake(int WIDTH, int HEIGHT)
 				if (Keyboard::isKeyPressed(Keyboard::Down))
 				{
 					if (direction != 3) direction = 0;
+					
 				}
 				if (Keyboard::isKeyPressed(Keyboard::Left))
 				{
 					if (direction != 2)direction = 1;
+					
 				}
 				if (Keyboard::isKeyPressed(Keyboard::Right))
 				{
 					if (direction != 1)direction = 2;
+					
 				}
 				if (Keyboard::isKeyPressed(Keyboard::Up))
 				{
 					if (direction != 0)direction = 3;
+					
+				}
+				if (Keyboard::isKeyPressed(Keyboard::S)) {
+					beginGame = 0;
+				}
+				if (Keyboard::isKeyPressed(Keyboard::R)) {
+					restart = 1;
+				}
+				if (Keyboard::isKeyPressed(Keyboard::Escape)) {
+					window.close();
 				}
 
 				if (e.type == Event::MouseButtonPressed) {
@@ -184,6 +222,7 @@ void clSnake::Snake(int WIDTH, int HEIGHT)
 							else {
 								beginGame = 0;
 							}
+
 						}
 
 						if ((pos.x >= ((wind.x / 2.0 + wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 + wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
@@ -218,16 +257,17 @@ void clSnake::Snake(int WIDTH, int HEIGHT)
 					window.draw(block);
 				}
 			}
-			for (int i = 0; i < num; i++)
-			{
-				blockSnake.setPosition(snake[i].x * SIZE, snake[i].y * SIZE);
-				blockSnake.move(190, 50);
-				window.draw(blockSnake);
+			if (beginGame == 0) {
+				for (int i = 0; i < num; i++)
+				{
+					blockSnake.setPosition(snake[i].x * SIZE, snake[i].y * SIZE);
+					blockSnake.move(190, 50);
+					if(snake[i].x < 30 && snake[i].x >= 0 && snake[i].y < 15 && snake[i].y >= 0) window.draw(blockSnake);
+				}
+				blockApple.setPosition(apple.x * SIZE, apple.y * SIZE);
+				blockApple.move(190, 50);
+				window.draw(blockApple);
 			}
-			blockApple.setPosition(apple.x * SIZE, apple.y * SIZE);
-			blockApple.move(190, 50);
-			window.draw(blockApple);
-
 			RectangleShape btn_1(Vector2f(200, 65));
 			btn_1.setFillColor(Color(220, 220, 220));
 			FloatRect btn_1_rect = btn_1.getLocalBounds();

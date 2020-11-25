@@ -12,11 +12,9 @@ using namespace sf;
 
 int main() {
 
-    /*
-    clSnake snake;
-
-    snake.Snake(WIDTH, HEIGHT);
-    */
+    
+    
+    
     
     clMenu menu;
 
