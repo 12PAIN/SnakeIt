@@ -132,6 +132,7 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
                     }
                     if (event.key.code == Keyboard::R) {
                         restart = 1;
+                        window.close();
                     }
                 }
 
