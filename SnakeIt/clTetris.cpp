@@ -3,6 +3,7 @@
 #include <iostream>
 #include <time.h>
 #include <string>
+#include <SFML/Audio.hpp>
 
 using namespace sf;
 
@@ -23,6 +24,12 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
     
         //Установка рандома
         srand(time(0));
+
+        SoundBuffer buffer;
+        buffer.loadFromFile("../Audio/test1.wav");
+
+        Sound sound;
+        sound.setBuffer(buffer);
     
         RenderWindow window(VideoMode(WIDTH, HEIGHT), "SnakeIt:Tetris");
     
@@ -151,6 +158,9 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
                         restart = 1;
                         window.close();
                     }
+                    if (event.key.code == Keyboard::S) {
+                        beginGame_1 = 0;
+                    }
     
                 }
 
@@ -207,15 +217,17 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
                 }
     
                 // Движение по горизонтали с проверкой выхода за границы
-                for (int i = 0; i < 4; i++) {
-                    b[i] = a[i];
-                    a[i].x += dx;
-                }
-    
-                if (!check())
+                if (beginGame_1 != 1) {
                     for (int i = 0; i < 4; i++) {
-                        a[i] = b[i];
+                        b[i] = a[i];
+                        a[i].x += dx;
                     }
+
+                    if (!check())
+                        for (int i = 0; i < 4; i++) {
+                            a[i] = b[i];
+                        }
+                }
     
                 //Поворот с проверкой выхода за границы
                 if (rotate && beginGame_1 != 1) {
@@ -247,6 +259,7 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
     
                         for (int i = 0; i < 4; i++) {
                             field[b[i].y][b[i].x] = colorNum;
+                            sound.play();
                         }
     
                         n = n_new;
@@ -274,9 +287,9 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
                 }
 
                 if(score.num < 2000)
-                    dy = 0.3 - 0.04*(score.num / 500);
+                    dy = 0.3 - 0.025*(score.num / 500);
                 if(score.num >= 2000)
-                    dy = 0.22 - 0.02 * (score.num / 1000);
+                    dy = 0.22 - 0.015 * (score.num / 1000);
 
                 //Создание первых кубиков
                 
