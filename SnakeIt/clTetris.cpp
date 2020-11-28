@@ -3,6 +3,7 @@
 #include <iostream>
 #include <time.h>
 #include <string>
+#include <SFML/Audio.hpp>
 
 using namespace sf;
 
@@ -10,7 +11,7 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
 
     //»нициализаци€ переменной рестарта
     bool restart = 0;
-
+    
     do{
         
 
@@ -23,6 +24,12 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
     
         //”становка рандома
         srand(time(0));
+
+        SoundBuffer buffer;
+        buffer.loadFromFile("../Audio/test1.wav");
+
+        Sound sound;
+        sound.setBuffer(buffer);
     
         RenderWindow window(VideoMode(WIDTH, HEIGHT), "SnakeIt:Tetris");
     
@@ -107,6 +114,7 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
 
         //ќбнуление рестарта
         restart = 0;
+        beginGame_1 = 1;
     
         while (window.isOpen()) {
     
@@ -150,14 +158,22 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
                         restart = 1;
                         window.close();
                     }
+                    if (event.key.code == Keyboard::S) {
+                        beginGame_1 = 0;
+                    }
     
                 }
 
                 if (event.type == Event::MouseButtonPressed) {
                     if(event.key.code == Mouse::Left){
                         if ((pos.x >= ((wind.x / 2.0 - wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 - wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
-                            restart = 1;
-                            window.close();
+                            if (beginGame_1 != 1) {
+                                restart = 1;
+                                window.close();
+                            }
+                            else {
+                                beginGame_1 = 0;
+                            }
                         }
 
                         if ((pos.x >= ((wind.x / 2.0 + wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 + wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
@@ -167,23 +183,54 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
                 }
 
             }
-    
+            
+            
             //ѕроверка не проиграна ли игра, чтобы новые кубики не создавались
-            if (!gameOver()) {
-    
-                // ƒвижение по горизонтали с проверкой выхода за границы
-                for (int i = 0; i < 4; i++) {
-                    b[i] = a[i];
-                    a[i].x += dx;
+            if (!gameOver()){
+
+                if (beginGame) {
+
+                    beginGame = false;
+
+                    n = n_new;
+
+                    for (int i = 0; i < 7; i++) {
+                        if (n == i) {
+                            colorNum = i + 1;
+                        }
+                    }
+
+                    for (int i = 0; i < 4; i++) {
+                        a[i].x = figures[n][i] % 2 + 4;
+
+                        a[i].y = figures[n][i] / 2;
+                    }
+
+                    n_new = rand() % 7;
+
+                    for (int i = 0; i < 7; i++) {
+                        if (n_new == i) {
+                            colorNum_new = i + 1;
+                        }
+                    }
+
                 }
     
-                if (!check())
+                // ƒвижение по горизонтали с проверкой выхода за границы
+                if (beginGame_1 != 1) {
                     for (int i = 0; i < 4; i++) {
-                        a[i] = b[i];
+                        b[i] = a[i];
+                        a[i].x += dx;
                     }
+
+                    if (!check())
+                        for (int i = 0; i < 4; i++) {
+                            a[i] = b[i];
+                        }
+                }
     
                 //ѕоворот с проверкой выхода за границы
-                if (rotate) {
+                if (rotate && beginGame_1 != 1) {
                     Point p = a[1];
                     for (int i = 0; i < 4; i++) {
                         b[i] = a[i];
@@ -202,7 +249,7 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
                 }
     
                 // ƒвижение вниз и создание новых кубиков
-                if (timer > delay) {
+                if (timer > delay && beginGame_1 != 1) {
                     for (int i = 0; i < 4; i++) {
                         b[i] = a[i];
                         a[i].y++;
@@ -212,6 +259,7 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
     
                         for (int i = 0; i < 4; i++) {
                             field[b[i].y][b[i].x] = colorNum;
+                            sound.play();
                         }
     
                         n = n_new;
@@ -239,38 +287,13 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
                 }
 
                 if(score.num < 2000)
-                    dy = 0.3 - 0.04*(score.num / 500);
+                    dy = 0.3 - 0.025*(score.num / 500);
                 if(score.num >= 2000)
-                    dy = 0.22 - 0.02 * (score.num / 1000);
+                    dy = 0.22 - 0.015 * (score.num / 1000);
 
                 //—оздание первых кубиков
-                if (beginGame) {
-    
-                    beginGame = false;
-
-                    n = n_new;
-
-                    for (int i = 0; i < 7; i++) {
-                        if (n == i) {
-                            colorNum = i + 1;
-                        }
-                    }
-
-                    for (int i = 0; i < 4; i++) {
-                        a[i].x = figures[n][i] % 2 + 4;
-    
-                        a[i].y = figures[n][i] / 2;
-                    }
-
-                    n_new = rand() % 7;
-
-                    for (int i = 0; i < 7; i++) {
-                        if (n_new == i) {
-                            colorNum_new = i + 1;
-                        }
-                    }
-    
-                }
+                
+                
     
                 //ќбнуление используемых значений
                 dx = 0;
@@ -440,7 +463,8 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
             Text text_1("", font, 20);
             text_1.setFillColor(Color::Black);
             text_1.setStyle(Text::Bold);
-            text_1.setString("Restart");
+            if(beginGame_1 != 1) text_1.setString("Restart");
+            else text_1.setString("Start");
             FloatRect text_1_rect = text_1.getLocalBounds();
             text_1.setOrigin(text_1_rect.left + text_1_rect.width / 2.0f, text_1_rect.top + text_1_rect.height / 2.0f);
             text_1.setPosition(Vector2f(WIDTH / 2.0f - WIDTH / 8.5333f, HEIGHT - HEIGHT / 4.2352f));

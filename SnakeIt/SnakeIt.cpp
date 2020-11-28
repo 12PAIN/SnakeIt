@@ -6,14 +6,20 @@
 #include "clTetris.h"
 #include "clSapper.h"
 #include "menu.h"
+#include "clSnake.h"
 
 using namespace sf;
 
 int main() {
+
+    
+    
+    
     
     clMenu menu;
 
     menu.menu(WIDTH, HEIGHT);
+    
 
     return 0;
 }
