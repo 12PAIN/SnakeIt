@@ -18,6 +18,10 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 	Font font;
 	font.loadFromFile("../Font/Arial.ttf");
 	
+	//Загрузка текстуры кнопки
+	Texture btn_tex;
+	btn_tex.loadFromFile("../Textures/button.png");
+
 	//Загрузка текстуры фона
 	Texture bground;
 	bground.loadFromFile("../Textures/background.png");
@@ -100,13 +104,11 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 		window.draw(background);
 
 		if (menu_dropdown != 1) {
-			RectangleShape btn_1(Vector2f(200, 65));
-			btn_1.setFillColor(Color(220, 220, 220));
+			Sprite btn_1(btn_tex);
 			FloatRect btn_1_rect = btn_1.getLocalBounds();
 			btn_1.setOrigin(btn_1_rect.left + btn_1_rect.width / 2.0f, btn_1_rect.top + btn_1_rect.height / 2.0f);
 			btn_1.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 3.0f));
-			btn_1.setOutlineColor(Color(110, 110, 110));
-			btn_1.setOutlineThickness(2);
+			
 
 			Text text_1("", font, 20);
 			text_1.setFillColor(Color::Black);
@@ -117,13 +119,10 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 			text_1.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 3.0f));
 
 
-			RectangleShape btn_2(Vector2f(200, 65));
-			btn_2.setFillColor(Color(220, 220, 220));
+			Sprite btn_2(btn_tex);
 			FloatRect btn_2_rect = btn_2.getLocalBounds();
 			btn_2.setOrigin(btn_2_rect.left + btn_2_rect.width / 2.0f, btn_2_rect.top + btn_2_rect.height / 2.0f);
 			btn_2.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 1.5f));
-			btn_2.setOutlineColor(Color(110, 110, 110));
-			btn_2.setOutlineThickness(2);
 
 			Text text_2("", font, 20);
 			text_2.setFillColor(Color::Black);
@@ -134,11 +133,11 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 			text_2.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 1.5f));
 
 			if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 1.5 - wind.y / 22.15)) && (pos.y <= (wind.y / 1.5 + wind.y / 22.15))) {
-				btn_2.setOutlineColor(Color::Red);
+				btn_2.setColor(Color(255, 255, 255, 200));
 			}
 
 			if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 3. - wind.y / 22.15)) && (pos.y <= (wind.y / 3. + wind.y / 22.15))) {
-				btn_1.setOutlineColor(Color::Red);
+				btn_1.setColor(Color(255, 255, 255, 200));
 			}
 
 			window.draw(btn_1);
@@ -149,13 +148,11 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 
 		}
 		else {
-			RectangleShape btn_1(Vector2f(200, 65));
-			btn_1.setFillColor(Color(220, 220, 220));
+			Sprite btn_1(btn_tex);
 			FloatRect btn_1_rect = btn_1.getLocalBounds();
 			btn_1.setOrigin(btn_1_rect.left + btn_1_rect.width / 2.0f, btn_1_rect.top + btn_1_rect.height / 2.0f);
 			btn_1.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 3.0f));
-			btn_1.setOutlineColor(Color(110, 110, 110));
-			btn_1.setOutlineThickness(2);
+			
 
 			Text text_1("", font, 20);
 			text_1.setFillColor(Color::Black);
@@ -165,13 +162,12 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 			text_1.setOrigin(text_1_rect.left + text_1_rect.width / 2.0f, text_1_rect.top + text_1_rect.height / 2.0f);
 			text_1.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 3.0f));
 
-			RectangleShape btn_4(Vector2f(200, 65));
-			btn_4.setFillColor(Color(220, 220, 220));
+			Sprite btn_4(btn_tex);
+			
 			FloatRect btn_4_rect = btn_4.getLocalBounds();
 			btn_4.setOrigin(btn_4_rect.left + btn_4_rect.width / 2.0f, btn_4_rect.top + btn_4_rect.height / 2.0f);
 			btn_4.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 5.5f));
-			btn_4.setOutlineColor(Color(110, 110, 110));
-			btn_4.setOutlineThickness(2);
+
 
 			Text text_4("", font, 20);
 			text_4.setFillColor(Color::Black);
@@ -181,13 +177,10 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 			text_4.setOrigin(text_4_rect.left + text_4_rect.width / 2.0f, text_4_rect.top + text_4_rect.height / 2.0f);
 			text_4.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 5.5f));
 
-			RectangleShape btn_5(Vector2f(200, 65));
-			btn_5.setFillColor(Color(220, 220, 220));
+			Sprite btn_5(btn_tex);
 			FloatRect btn_5_rect = btn_5.getLocalBounds();
 			btn_5.setOrigin(btn_5_rect.left + btn_5_rect.width / 2.0f, btn_5_rect.top + btn_5_rect.height / 2.0f);
 			btn_5.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 1.5f));
-			btn_5.setOutlineColor(Color(110, 110, 110));
-			btn_5.setOutlineThickness(2);
 
 			Text text_5("", font, 20);
 			text_5.setFillColor(Color::Black);
@@ -197,13 +190,10 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 			text_5.setOrigin(text_5_rect.left + text_5_rect.width / 2.0f, text_5_rect.top + text_5_rect.height / 2.0f);
 			text_5.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 1.5f));
 
-			RectangleShape btn_3(Vector2f(200, 65));
-			btn_3.setFillColor(Color(220, 220, 220));
+			Sprite btn_3(btn_tex);
 			FloatRect btn_3_rect = btn_3.getLocalBounds();
 			btn_3.setOrigin(btn_3_rect.left + btn_3_rect.width / 2.0f, btn_3_rect.top + btn_3_rect.height / 2.0f);
 			btn_3.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 2.0f));
-			btn_3.setOutlineColor(Color(110, 110, 110));
-			btn_3.setOutlineThickness(2);
 
 			Text text_3("", font, 20);
 			text_3.setFillColor(Color::Black);
@@ -214,13 +204,10 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 			text_3.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 2.0f));
 
 
-			RectangleShape btn_2(Vector2f(200, 65));
-			btn_2.setFillColor(Color(220, 220, 220));
+			Sprite btn_2(btn_tex);
 			FloatRect btn_2_rect = btn_2.getLocalBounds();
 			btn_2.setOrigin(btn_2_rect.left + btn_2_rect.width / 2.0f, btn_2_rect.top + btn_2_rect.height / 2.0f);
 			btn_2.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 1.2f));
-			btn_2.setOutlineColor(Color(110, 110, 110));
-			btn_2.setOutlineThickness(2);
 
 			Text text_2("", font, 20);
 			text_2.setFillColor(Color::Black);
@@ -229,26 +216,26 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 			FloatRect text_2_rect = text_2.getLocalBounds();
 			text_2.setOrigin(text_2_rect.left + text_2_rect.width / 2.0f, text_2_rect.top + text_2_rect.height / 2.0f);
 			text_2.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 1.2f));
-
+			
 
 			if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 1.2 - wind.y / 22.15)) && (pos.y <= (wind.y / 1.2 + wind.y / 22.15))) {
-				btn_2.setOutlineColor(Color::Red);
+				btn_2.setColor(Color(255, 255, 255, 200));
 			}
 
 			if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 3. - wind.y / 22.15)) && (pos.y <= (wind.y / 3. + wind.y / 22.15))) {
-				btn_1.setOutlineColor(Color::Red);
+				btn_1.setColor(Color(255, 255, 255, 200));
 			}
 
 			if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 2. - wind.y / 22.15)) && (pos.y <= (wind.y / 2. + wind.y / 22.15))) {
-				btn_3.setOutlineColor(Color::Red);
+				btn_3.setColor(Color(255, 255, 255, 200));
 			}
 
 			if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 5.5 - wind.y / 22.15)) && (pos.y <= (wind.y / 5.5 + wind.y / 22.15))) {
-				btn_4.setOutlineColor(Color::Red);
+				btn_4.setColor(Color(255, 255, 255, 200));
 			}
 
 			if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 1.5 - wind.y / 22.15)) && (pos.y <= (wind.y / 1.5 + wind.y / 22.15))) {
-				btn_5.setOutlineColor(Color::Red);
+				btn_5.setColor(Color(255, 255, 255, 200));
 			}
 
 

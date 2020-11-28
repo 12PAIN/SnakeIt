@@ -117,6 +117,10 @@ void clSnake::Snake(int WIDTH, int HEIGHT)
 		background.loadFromFile("../Textures/background.png");
 		Sprite bground(background);
 
+		//Загрузка текстуры кнопки
+		Texture btn_tex;
+		btn_tex.loadFromFile("../Textures/button.png");
+
 		Font font;
 		font.loadFromFile("../Font/arial.ttf");
 
@@ -268,13 +272,10 @@ void clSnake::Snake(int WIDTH, int HEIGHT)
 				blockApple.move(190, 50);
 				window.draw(blockApple);
 			}
-			RectangleShape btn_1(Vector2f(200, 65));
-			btn_1.setFillColor(Color(220, 220, 220));
+			Sprite btn_1(btn_tex);
 			FloatRect btn_1_rect = btn_1.getLocalBounds();
 			btn_1.setOrigin(btn_1_rect.left + btn_1_rect.width / 2.0f, btn_1_rect.top + btn_1_rect.height / 2.0f);
 			btn_1.setPosition(Vector2f(WIDTH / 2.0f - WIDTH / 8.5333f, HEIGHT - HEIGHT / 4.2352f));
-			btn_1.setOutlineColor(Color(110, 110, 110));
-			btn_1.setOutlineThickness(2);
 
 			Text text_1("", font, 20);
 			text_1.setFillColor(Color::Black);
@@ -286,13 +287,10 @@ void clSnake::Snake(int WIDTH, int HEIGHT)
 			text_1.setPosition(Vector2f(WIDTH / 2.0f - WIDTH / 8.5333f, HEIGHT - HEIGHT / 4.2352f));
 
 
-			RectangleShape btn_2(Vector2f(200, 65));
-			btn_2.setFillColor(Color(220, 220, 220));
+			Sprite btn_2(btn_tex);
 			FloatRect btn_2_rect = btn_2.getLocalBounds();
 			btn_2.setOrigin(btn_2_rect.left + btn_2_rect.width / 2.0f, btn_2_rect.top + btn_2_rect.height / 2.0f);
 			btn_2.setPosition(Vector2f(WIDTH / 2.0f + WIDTH / 8.5333f, HEIGHT - HEIGHT / 4.2352f));
-			btn_2.setOutlineColor(Color(110, 110, 110));
-			btn_2.setOutlineThickness(2);
 
 			Text text_2("", font, 20);
 			text_2.setFillColor(Color::Black);
@@ -303,11 +301,11 @@ void clSnake::Snake(int WIDTH, int HEIGHT)
 			text_2.setPosition(Vector2f(WIDTH / 2.0f + WIDTH / 8.5333f, HEIGHT - HEIGHT / 4.2352f));
 
 			if ((pos.x >= ((wind.x / 2.0 - wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 - wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
-				btn_1.setOutlineColor(Color::Red);
+				btn_1.setColor(Color(255, 255, 255, 200));
 			}
 
 			if ((pos.x >= ((wind.x / 2.0 + wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 + wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
-				btn_2.setOutlineColor(Color::Red);
+				btn_2.setColor(Color(255, 255, 255, 200));
 			}
 
 
