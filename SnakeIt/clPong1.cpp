@@ -33,7 +33,13 @@ int main(int argc, char const* argv[])
 
 	while (window.isOpen())
 	{
+		Vector2f bPos = ball.getPosition();
+		Vector2f pPos = player.getPosition();
 
+		if (bPos.x < 0) dx = speed;
+		else if (bPos.x > 300 - 10) dx = -speed;
+		if (bPos.y < 0) dy = speed;
+		else if (bPos.y > 400 - 10)
 	}
 
 
