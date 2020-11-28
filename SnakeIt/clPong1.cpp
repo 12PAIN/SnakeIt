@@ -15,21 +15,21 @@ int main(int argc, char const* argv[])
 	window.setFramerateLimit(30);
 
 	Font font;
-	font.loadFromFile("Arial.ttf");
+	font.loadFromFile("Font/Arial.ttf");
 
 	Text text("", font);
 	text.setString(to_string(score));
 	text.setCharacterSize(20);
 	text.setStyle(Text::Bold);
-	text.setColor(Color::White);
+	text.setFillColor(Color::White);
 
 	RectangleShape ball(Vector2f(10, 10));
 	ball.setFillColor(Color::White);
 	ball.setPosition(100, 100);
 
 	RectangleShape player(Vector2f(40, 10));
-	ball.setFillColor(Color::White);
-	ball.setPosition(130, 385);
+	player.setFillColor(Color::White);
+	player.setPosition(130, 385);
 
 	while (window.isOpen())
 	{
@@ -69,7 +69,17 @@ int main(int argc, char const* argv[])
 			if (pPos.x < 300 - 40) player.move(speed, 0);
 		}
 
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed) window.close();
+		}
+
 		window.clear();
 		window.draw(ball);
+		window.draw(player);
+		window.draw(text);
+		window.display();
 	}
+	return 0;
 }
