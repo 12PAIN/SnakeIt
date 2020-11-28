@@ -145,11 +145,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="clNewSnake.cpp" />
     <ClCompile Include="clSapper.cpp" />
     <ClCompile Include="clSnake.cpp" />
     <ClCompile Include="clTetris.cpp" />
     <ClCompile Include="menu.cpp" />
-    <ClCompile Include="NewSnake.cpp" />
     <ClCompile Include="SnakeIt.cpp" />
   </ItemGroup>
   <ItemGroup>

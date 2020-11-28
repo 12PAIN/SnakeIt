@@ -30,7 +30,7 @@
     <ClCompile Include="clSnake.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NewSnake.cpp">
+    <ClCompile Include="clNewSnake.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
