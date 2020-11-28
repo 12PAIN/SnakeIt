@@ -40,9 +40,36 @@ int main(int argc, char const* argv[])
 		else if (bPos.x > 300 - 10) dx = -speed;
 		if (bPos.y < 0) dy = speed;
 		else if (bPos.y > 400 - 10)
+		{
+			dy = 0;
+			dx = 0;
+		}
+
+		if (bPos.x >= pPos.x && bPos.x <= pPos.x + 40)
+			if (bPos.y >= pPos.y - 10)
+			{
+				score++;
+				text.setString(to_string(score));
+				dy = -speed;
+			}
+		ball.move(dx, dy);
+
+		if (Keyboard::isKeyPressed(Keyboard::Space))
+		{
+			dx = speed;
+			dy = speed;
+			score = 0;
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Left))
+		{
+			if (pPos.x > 0) player.move(-speed, 0);
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Right))
+		{
+			if (pPos.x < 300 - 40) player.move(speed, 0);
+		}
+
+		window.clear();
+		window.draw(ball);
 	}
-
-
-
-	while (window.isOpen())
 }
