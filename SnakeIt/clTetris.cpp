@@ -44,6 +44,10 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
         background.setRepeated(true);
         background.loadFromFile("../Textures/background.png");
         Sprite bground(background);
+
+        //Загрузка текстуры кнопки
+        Texture btn_tex;
+        btn_tex.loadFromFile("../Textures/button.png");
     
         //Загрузка рамки
         Texture frame_tex;
@@ -397,7 +401,7 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
     
             // Надпись для следующей фигуры
             Text next("", font, 20);
-            next.setFillColor(Color::Black);
+            next.setFillColor(Color::White);
             next.setStyle(Text::Bold | Text::Italic);
             next.setString("Next figure: ");
             next.setPosition(N * 18 + 60, 95);
@@ -445,20 +449,17 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
             //Текст счёта
             score.str = "Your score is:" + std::to_string(score.num);
             Text text4("", font, 20);
-            text4.setFillColor(Color::Black);
+            text4.setFillColor(Color::White);
             text4.setStyle(Text::Bold | Text::Italic);
             text4.setString(score.str);
             text4.setPosition(N * 18 + 60, 65);
             window.draw(text4);
 
             //Кнопки
-            RectangleShape btn_1(Vector2f(200, 65));
-            btn_1.setFillColor(Color(220, 220, 220));
+            Sprite btn_1(btn_tex);
             FloatRect btn_1_rect = btn_1.getLocalBounds();
             btn_1.setOrigin(btn_1_rect.left + btn_1_rect.width / 2.0f, btn_1_rect.top + btn_1_rect.height / 2.0f);
             btn_1.setPosition(Vector2f(WIDTH / 2.0f - WIDTH / 8.5333f, HEIGHT - HEIGHT / 4.2352f));
-            btn_1.setOutlineColor(Color(110, 110, 110));
-            btn_1.setOutlineThickness(2);
 
             Text text_1("", font, 20);
             text_1.setFillColor(Color::Black);
@@ -470,13 +471,10 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
             text_1.setPosition(Vector2f(WIDTH / 2.0f - WIDTH / 8.5333f, HEIGHT - HEIGHT / 4.2352f));
 
 
-            RectangleShape btn_2(Vector2f(200, 65));
-            btn_2.setFillColor(Color(220, 220, 220));
+            Sprite btn_2(btn_tex);
             FloatRect btn_2_rect = btn_2.getLocalBounds();
             btn_2.setOrigin(btn_2_rect.left + btn_2_rect.width / 2.0f, btn_2_rect.top + btn_2_rect.height / 2.0f);
             btn_2.setPosition(Vector2f(WIDTH / 2.0f + WIDTH / 8.5333f, HEIGHT - HEIGHT / 4.2352f));
-            btn_2.setOutlineColor(Color(110, 110, 110));
-            btn_2.setOutlineThickness(2);
 
             Text text_2("", font, 20);
             text_2.setFillColor(Color::Black);
@@ -487,11 +485,11 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
             text_2.setPosition(Vector2f(WIDTH / 2.0f + WIDTH / 8.5333f, HEIGHT - HEIGHT / 4.2352f));
 
             if ((pos.x >= ((wind.x / 2.0 - wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 - wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
-                btn_1.setOutlineColor(Color::Red);
+                btn_1.setColor(Color(255,255,255,200));
             }
 
             if ((pos.x >= ((wind.x / 2.0 + wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 + wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
-                btn_2.setOutlineColor(Color::Red);
+                btn_2.setColor(Color(255,255,255,200));
             }
 
             
