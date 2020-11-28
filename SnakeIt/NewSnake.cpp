@@ -15,8 +15,8 @@ int main()
 	t1.loadFromFile("Textures/white.png");
 	t2.loadFromFile("Textures/red.png");
 
-	Sprite spritr1(t1);
-	Sprite spritr2(t2);
+	Sprite sprite1(t1);
+	Sprite sprite2(t2);
 
 	while (window.isOpen())
 	{
@@ -26,6 +26,18 @@ int main()
 			if (e.type == Event::Closed)
 				window.close();
 		}
+
+		//////////draw////////
+		window.clear();
+
+		for (int i = 0; i < N;i++)
+			for (int j = 0; j < M;j++)
+			{
+				sprite1.setPosition(i * size, j * size); window.draw(sprite1);
+			}
+
+
+		window.display();
 	}
 
 	return 0;
