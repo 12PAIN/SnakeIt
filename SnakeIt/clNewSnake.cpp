@@ -39,13 +39,26 @@ int main()
 	Sprite sprite1(t1);
 	Sprite sprite2(t2);
 
+	Clock clock;
+	float timer = 0, delay = 0.1;
+
 	while (window.isOpen())
 	{
+		float time = clock.getElapsedTime().asSeconds();
+		clock.restart();
+		timer += time;
+
 		Event e;
 		while (window.pollEvent(e))
 		{
 			if (e.type == Event::Closed)
 				window.close();
+		}
+
+		if (timer > delay)
+		{
+			timer = 0;
+			Tick();
 		}
 
 		//////////draw////////
