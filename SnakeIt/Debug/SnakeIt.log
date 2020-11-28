@@ -1,1 +1,2 @@
-﻿  SnakeIt.vcxproj -> C:\Users\Никита\Desktop\Study folder\SnakeIt\SnakeIt\Debug\SnakeIt.exe
+﻿SnakeIt.obj : error LNK2005: _main уже определен в clSnake.obj
+C:\Users\Никита\Desktop\Study folder\SnakeIt\SnakeIt\Debug\SnakeIt.exe : fatal error LNK1169: обнаружен многократно определенный символ - один или более
