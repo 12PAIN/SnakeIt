@@ -36,6 +36,9 @@
     <ClCompile Include="clPong1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="clTron.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GlobalVars.h">
@@ -57,6 +60,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="clPong1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="clTron.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -150,6 +150,7 @@
     <ClCompile Include="clSapper.cpp" />
     <ClCompile Include="clSnake.cpp" />
     <ClCompile Include="clTetris.cpp" />
+    <ClCompile Include="clTron.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="SnakeIt.cpp" />
   </ItemGroup>
@@ -158,6 +159,7 @@
     <ClInclude Include="clPong1.h" />
     <ClInclude Include="clSapper.h" />
     <ClInclude Include="clTetris.h" />
+    <ClInclude Include="clTron.h" />
     <ClInclude Include="GlobalVars.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="clSnake.h" />
