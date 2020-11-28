@@ -4,7 +4,7 @@ using namespace sf;
 
 const int W = 600;
 const int H = 480;
-int speed = 4;
+int speed = 4;//Добавить сложности 3-easy mod 4-medium mod 5-hard mod
 bool field[W][H] = { 0 };
 
 struct player
@@ -46,7 +46,7 @@ int main()
 	texture.loadFromFile("Textures/background.jpg");
 	Sprite sBackground(texture);
 
-	player p1(Color::Red), p2(Color::Green);
+	player p1(Color::Red), p2(Color::Green);//Сделать так чтобы пользователь мог сам выбирать цвет 
 
 	Sprite sprite;
 	RenderTexture t;
@@ -55,7 +55,18 @@ int main()
 	sprite.setTexture(t.getTexture());
 	t.clear(); t.draw(sBackground);
 
-	bool Game = 1;
+
+	Font font; font.loadFromFile("Font/arial.ttf");
+	Text textWin("WIN", font, 35);
+	Text textLose("LOSE", font, 35);
+	Text textPlayer1("PLAYER ", font, 35);//Надпись и ее размер
+	Text textPlayer2("PLAYER ", font, 35);
+	textPlayer1.setPosition(W / 2 - 125, 30);//Координаты вывода этой надписи
+	textPlayer2.setPosition(W / 2 - 125, 60);
+	textWin.setPosition(W / 2 + 25, 30);
+	textLose.setPosition(W / 2 + 25, 60);
+
+	bool Game = 1;//Что выводит игра при работе 
 
 	while (window.isOpen())
 	{
@@ -76,13 +87,21 @@ int main()
 		if (Keyboard::isKeyPressed(Keyboard::W)) if (p2.dir != 0) p2.dir = 3;
 		if (Keyboard::isKeyPressed(Keyboard::S)) if (p2.dir != 3) p2.dir = 0;
 
-		if (!Game) continue;
+		if (!Game)//Что выводит игра после завершения 
+		{
+			window.draw(textWin);//Выводит текст YOU WIN!
+			window.draw(textLose);
+			window.draw(textPlayer1);
+			window.draw(textPlayer2);
+			window.display();
+			continue;
+		}
 
 		for (int i = 0; i < speed;i++)
 		{
 			p1.tick(); p2.tick();
-			if (field[p1.x][p1.y] == 1) Game = 0;
-			if (field[p2.x][p2.y] == 1) Game = 0;
+			if (field[p1.x][p1.y] == 1) { Game = 0; textPlayer1.setFillColor(p2.color), textWin.setFillColor(Color::White); textPlayer2.setFillColor(p1.color), textLose.setFillColor(Color::White); }//Player(цвет игрока) win
+			if (field[p2.x][p2.y] == 1) { Game = 0; textPlayer1.setFillColor(p1.color), textWin.setFillColor(Color::White); textPlayer2.setFillColor(p2.color), textLose.setFillColor(Color::White); }//Player(цвет игрока) lose
 			field[p1.x][p1.y] = 1;
 			field[p2.x][p2.y] = 1;
 
