@@ -149,6 +149,7 @@
     <ClCompile Include="clSnake.cpp" />
     <ClCompile Include="clTetris.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="NewSnake.cpp" />
     <ClCompile Include="SnakeIt.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +158,7 @@
     <ClInclude Include="GlobalVars.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="clSnake.h" />
+    <ClInclude Include="NewSnake.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
