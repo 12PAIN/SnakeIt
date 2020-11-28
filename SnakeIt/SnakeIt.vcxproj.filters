@@ -33,6 +33,9 @@
     <ClCompile Include="clNewSnake.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="clPong1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GlobalVars.h">
@@ -50,7 +53,10 @@
     <ClInclude Include="clSnake.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NewSnake.h">
+    <ClInclude Include="clNewSnake.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="clPong1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
