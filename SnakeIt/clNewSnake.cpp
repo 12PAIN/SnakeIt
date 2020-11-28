@@ -7,7 +7,7 @@ int size = 16;
 int w = size * N;
 int h = size * M;
 
-int direction, num = 4;
+int direction, num = 3;
 
 struct Snake
 {
@@ -28,7 +28,7 @@ void Tick()
 	}
 }
 
-int main()
+void main()
 {
 	RenderWindow window(VideoMode(w, h), "Snake The Game");
 
@@ -55,6 +55,11 @@ int main()
 				window.close();
 		}
 
+		if (Keyboard::isKeyPressed(Keyboard::Left)) direction = 1;
+		if (Keyboard::isKeyPressed(Keyboard::Right)) direction = 2;
+		if (Keyboard::isKeyPressed(Keyboard::Up)) direction = 3;
+		if (Keyboard::isKeyPressed(Keyboard::Down)) direction = 0;
+
 		if (timer > delay)
 		{
 			timer = 0;
@@ -70,9 +75,13 @@ int main()
 				sprite1.setPosition(i * size, j * size); window.draw(sprite1);
 			}
 
+		for (int i = 0;i < num;i++)
+		{
+			sprite2.setPosition(s[i].x * size, s[i].y * size); window.draw(sprite2);
+		}
+
 
 		window.display();
 	}
 
-	return 0;
 }
