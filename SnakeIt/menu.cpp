@@ -3,7 +3,7 @@
 #include <time.h>
 #include <string>
 #include "clTetris.h"
-#include "clSnake.h"
+#include "clNewSnake.h"
 #include "clSapper.h"
 #include "menu.h"
 
@@ -82,8 +82,8 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 						}
 
 						if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 5.5 - wind.y / 22.15)) && (pos.y <= (wind.y / 5.5 + wind.y / 22.15))) {
-							clSnake snake;
-							snake.Snake(WIDTH, HEIGHT);
+							NewSnake snake;
+							snake.Snake();
 						}
 
 						if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 1.5 - wind.y / 22.15)) && (pos.y <= (wind.y / 1.5 + wind.y / 22.15))) {
