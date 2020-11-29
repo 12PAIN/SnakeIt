@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+/*#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include<iostream>
 #include<cstdlib>
@@ -215,3 +215,5 @@ int gameOver()//Функция gameover(Спасибо, кэп)
     {
         //TODO
     }
+
+    */

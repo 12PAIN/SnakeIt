@@ -1,4 +1,4 @@
-#include<SFML/Graphics.hpp>
+/*#include<SFML/Graphics.hpp>
 #include<time.h>
 using namespace sf;
 
@@ -116,3 +116,4 @@ int main()
 	}
 	return 0;
 }
+*/

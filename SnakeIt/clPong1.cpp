@@ -1,4 +1,4 @@
-#include<SFML/Graphics.hpp>
+/*#include<SFML/Graphics.hpp>
 #include<string>
 
 using namespace sf;
@@ -83,3 +83,4 @@ int main(int argc, char const* argv[])
 	}
 	return 0;
 }
+*/

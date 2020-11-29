@@ -1,25 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <time.h>
+#include "clNewSnake.h"
 using namespace sf;
 
-int N = 30, M = 20;
-int size = 16;
-int w = size * N;
-int h = size * M;
-
-int dir, num = 4;
-
-struct Snake
-{
-    int x, y;
-}  s[100];
-
-struct Fruit
-{
-    int x, y;
-} f;
-
-void Tick()
+void NewSnake::Tick()
 {
     for (int i = num;i > 0;--i)
     {
@@ -43,23 +27,23 @@ void Tick()
         if (s[0].x == s[i].x && s[0].y == s[i].y)  num = i;
 }
 
-int main()
+void NewSnake::Snake()
 {
     srand(time(0));
 
     RenderWindow window(VideoMode(w, h), "Snake Game!");
 
     Texture t1, t2, t3;
-    t1.loadFromFile("Textures/white.png");
-    t2.loadFromFile("Textures/red.png");
-    t3.loadFromFile("Textures/green.png");
+    t1.loadFromFile("../Textures/white.png");
+    t2.loadFromFile("../Textures/red.png");
+    t3.loadFromFile("../Textures/green.png");
 
     Sprite sprite1(t1);
     Sprite sprite2(t2);
     Sprite sprite3(t3);
 
     Clock clock;
-    float timer = 0, delay = 0.1;
+    float timer = 0, delay = 0.2;
 
     f.x = 10;
     f.y = 10;
@@ -103,5 +87,5 @@ int main()
         window.display();
     }
 
-    return 0;
+    
 }
