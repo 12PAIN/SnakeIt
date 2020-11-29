@@ -146,8 +146,72 @@ int gameOver()//Функция gameover(Спасибо, кэп)
                 Obs4Y = 0;Obs4X = getRandomNumber(borderLeft, borderRight);score++;
             }
             else { Obs4Y = Obs4Y + gameSpeed; }
+
+            //Ускоренеи игры с набором игрового уровня 
+            if (score > 10 && score < 18) { gameSpeed = 0.4; }
+            if (score > 18 && score < 25) { gameSpeed = 0.5; }
+            if (score > 25 && score < 35) { gameSpeed = 0.6; }
+
+            //Управление клавиатурой 
+            Event event;
+            while (app.pollEvent(event))
+            {
+                if (event.type == Event::Closed)
+                    app.close();
+                if (event.type == sf::Event::KeyPressed)
+                {
+                    if (event.key.code == sf::Keyboard::Left)
+                    {
+                        if (RacerX > borderLeft) { RacerX = RacerX - 10; }
+                    }
+                    if (event.key.code == sf::Keyboard::Right)
+                    {
+                        if (RacerX < borderRight) { RacerX = RacerX + 10; }
+                    }
+                    if (event.key.code == sf::Keyboard::Up)
+                    {
+                        if (RacerY > 0) { RacerY = RacerY - 10; }
+                    }
+                    if (event.key.code == sf::Keyboard::Down)
+                    {
+                        if (RacerY < SCREEN_HEIGH - 70) { RacerY = RacerY + 10; }
+                    }
+                }
+            }
+
+            //Проверка на столкновение/аварию
+            if (((RacerX >= (Obs1X - 30)) && (RacerX <= (Obs1X + 30))) && ((RacerY >= (Obs1Y - 30)) && (RacerY) <= (Obs1Y + 30)))
+            {
+                GameSound.stop();gameOver();
+            };
+            if (((RacerX >= (Obs2X - 30)) && (RacerX <= (Obs2X + 30))) && ((RacerY >= (Obs2Y - 30)) && (RacerY) <= (Obs2Y + 30)))
+            {
+                GameSound.stop();gameOver();
+            };
+            if (((RacerX >= (Obs3X - 30)) && (RacerX <= (Obs3X + 30))) && ((RacerY >= (Obs3Y - 30)) && (RacerY) <= (Obs3Y + 30)))
+            {
+                GameSound.stop();gameOver();
+            };
+            if (((RacerX >= (Obs4X - 30)) && (RacerX <= (Obs4X + 30))) && ((RacerY >= (Obs4Y - 30)) && (RacerY) <= (Obs4Y + 30)))
+            {
+                GameSound.stop();gameOver();
+            };
+
+            //Прорисовка 
+            app.clear();
+            app.draw(Background);
+            app.draw(Background1);
+            app.draw(Racer);
+            app.draw(Obs1);
+            app.draw(Obs2);
+            app.draw(Obs3);
+            app.draw(Obs4);
+            app.draw(text);
+            app.display();
         }
-
+        return EXIT_SUCCESS;
     }
-
-}
+    int startGame()
+    {
+        //TODO
+    }
