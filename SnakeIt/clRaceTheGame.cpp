@@ -60,8 +60,9 @@ int gameOver()//Функция gameover(Спасибо, кэп)
     }
 
 
-    int main()
+    int main();
     {
+        
         //Звук
         SoundBuffer gameSoundBuffer;
             gameSoundBuffer.loadFromFile("Audio/game.wav");
@@ -98,6 +99,54 @@ int gameOver()//Функция gameover(Спасибо, кэп)
 
         GameSound.play();
         GameSound.setLoop(true);
+
+        while (app.isOpen())
+        {
+            //Счет 
+            stringscore = "SCORE:" + to_string(score);
+            Text text(stringscore, myfont, 15);
+            text.setPosition(5, 0);
+
+            //Позиция машины 
+            Racer.setPosition(RacerX, RacerY);
+            Obs1.setPosition(Obs1X, Obs1Y);
+            Obs2.setPosition(Obs2X, Obs2Y);
+            Obs3.setPosition(Obs3X, Obs3Y);
+            Obs4.setPosition(Obs4X, Obs4Y);
+
+            //scrolling background 
+            Background.setPosition(0, BackgroundY1);
+            Background1.setPosition(0, BackgroundY2);
+            if (BackgroundY2 > 0)
+            {
+                BackgroundY1 = 0;
+                BackgroundY2 = BackgroundY1 - 500;
+            }
+            BackgroundY1 += 0.1;
+            BackgroundY2 += 0.1;
+
+            //Генератор встречных машин
+            if (Obs1Y > SCREEN_HEIGH)
+            {
+                Obs1Y = 0;Obs1X = getRandomNumber(borderLeft, borderRight);score++;
+            }
+            else { Obs1Y = Obs1Y + gameSpeed; }
+            if (Obs2Y > SCREEN_HEIGH)
+            {
+                Obs2Y = 0;Obs2X = getRandomNumber(borderLeft, borderRight);score++;
+            }
+            else { Obs2Y = Obs2Y + gameSpeed; }
+            if (Obs3Y > SCREEN_HEIGH)
+            {
+                Obs3Y = 0;Obs3X = getRandomNumber(borderLeft, borderRight);score++;
+            }
+            else { Obs3Y = Obs3Y + gameSpeed; }
+            if (Obs4Y > SCREEN_HEIGH)
+            {
+                Obs4Y = 0;Obs4X = getRandomNumber(borderLeft, borderRight);score++;
+            }
+            else { Obs4Y = Obs4Y + gameSpeed; }
+        }
 
     }
 
