@@ -5,7 +5,10 @@
 #include "clTetris.h"
 #include "clNewSnake.h"
 #include "clSapper.h"
+#include "clRaceTheGame.h"
+#include "clTron.h"
 #include "menu.h"
+#include "clPong1.h"
 
 using namespace sf;
 
@@ -13,6 +16,12 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 
 	//Рендер окна
 	RenderWindow window(VideoMode(WIDTH, HEIGHT), "SnakeIt!");
+
+
+	Image icon;
+	icon.loadFromFile("../Textures/icon.png");
+	
+	window.setIcon(100, 100, icon.getPixelsPtr());
 
 	//загрузка шрифта
 	Font font;
@@ -87,10 +96,20 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 						}
 
 						if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 1.5 - wind.y / 22.15)) && (pos.y <= (wind.y / 1.5 + wind.y / 22.15))) {
-							
+							RGame race;
+							race.RaceTheGame();
 						}
-						
 
+						
+						if ((pos.x >= (wind.x / 3.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 3.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 3. - wind.y / 22.15)) && (pos.y <= (wind.y / 3. + wind.y / 22.15))) {
+							clTron tron;
+							tron.TronGame();
+						}
+
+						if ((pos.x >= (wind.x / 1.5 - wind.x / 12.8)) && (pos.x <= (wind.x / 1.5 + wind.x / 12.8)) && (pos.y >= (wind.y / 3. - wind.y / 22.15)) && (pos.y <= (wind.y / 3. + wind.y / 22.15))) {
+							clPong pong;
+							pong.Pong();
+						}
 
 					}
 				}
@@ -161,6 +180,36 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 			FloatRect text_1_rect = text_1.getLocalBounds();
 			text_1.setOrigin(text_1_rect.left + text_1_rect.width / 2.0f, text_1_rect.top + text_1_rect.height / 2.0f);
 			text_1.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 3.0f));
+
+
+			Sprite btn_7(btn_tex);
+			FloatRect btn_7_rect = btn_7.getLocalBounds();
+			btn_7.setOrigin(btn_7_rect.left + btn_7_rect.width / 2.0f, btn_7_rect.top + btn_7_rect.height / 2.0f);
+			btn_7.setPosition(Vector2f(WIDTH / 1.5f, HEIGHT / 3.0f));
+
+
+			Text text_7("", font, 20);
+			text_7.setFillColor(Color::Black);
+			text_7.setStyle(Text::Bold);
+			text_7.setString("The Pong");
+			FloatRect text_7_rect = text_7.getLocalBounds();
+			text_7.setOrigin(text_7_rect.left + text_7_rect.width / 2.0f, text_7_rect.top + text_7_rect.height / 2.0f);
+			text_7.setPosition(Vector2f(WIDTH / 1.5f, HEIGHT / 3.0f));
+
+			Sprite btn_6(btn_tex);
+			FloatRect btn_6_rect = btn_6.getLocalBounds();
+			btn_6.setOrigin(btn_6_rect.left + btn_6_rect.width / 2.0f, btn_6_rect.top + btn_6_rect.height / 2.0f);
+			btn_6.setPosition(Vector2f(WIDTH / 3.0f, HEIGHT / 3.0f));
+
+
+			Text text_6("", font, 20);
+			text_6.setFillColor(Color::Black);
+			text_6.setStyle(Text::Bold);
+			text_6.setString("Tron Game");
+			FloatRect text_6_rect = text_6.getLocalBounds();
+			text_6.setOrigin(text_6_rect.left + text_6_rect.width / 2.0f, text_6_rect.top + text_6_rect.height / 2.0f);
+			text_6.setPosition(Vector2f(WIDTH / 3.0f, HEIGHT / 3.0f));
+
 
 			Sprite btn_4(btn_tex);
 			
@@ -238,6 +287,13 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 				btn_5.setColor(Color(255, 255, 255, 200));
 			}
 
+			if ((pos.x >= (wind.x / 3.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 3.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 3. - wind.y / 22.15)) && (pos.y <= (wind.y / 3. + wind.y / 22.15))) {
+				btn_6.setColor(Color(255, 255, 255, 200));
+			}
+
+			if ((pos.x >= (wind.x / 1.5 - wind.x / 12.8)) && (pos.x <= (wind.x / 1.5 + wind.x / 12.8)) && (pos.y >= (wind.y / 3. - wind.y / 22.15)) && (pos.y <= (wind.y / 3. + wind.y / 22.15))) {
+				btn_7.setColor(Color(255, 255, 255, 200));
+			}
 
 
 			window.draw(btn_1);
@@ -250,6 +306,10 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 			window.draw(text_4);
 			window.draw(btn_5);
 			window.draw(text_5);
+			window.draw(btn_6);
+			window.draw(text_6);
+			window.draw(btn_7);
+			window.draw(text_7);
 			
 
 		}

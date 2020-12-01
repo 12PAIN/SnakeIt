@@ -42,8 +42,12 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
         //Загрузка фона
         Texture background;
         background.setRepeated(true);
-        background.loadFromFile("../Textures/background.png");
+        background.loadFromFile("../Textures/background_tetris.png");
         Sprite bground(background);
+
+        Image icon;
+        icon.loadFromFile("../Textures/icon_tetris.png");
+        window.setIcon(100, 100, icon.getPixelsPtr());
 
         //Загрузка текстуры кнопки
         Texture btn_tex;

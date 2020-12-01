@@ -22,10 +22,16 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
         //Загрузка фона
         Texture background;
         background.setRepeated(true);
-        background.loadFromFile("../Textures/background.png");
+        background.loadFromFile("../Textures/background_sapper.png");
         Sprite bground(background);
 
+        
+
         RenderWindow window(VideoMode(WIDTH, HEIGHT), "SnakeIt:Sapper");
+
+        Image icon;
+        icon.loadFromFile("../Textures/icon_sapper.png");
+        window.setIcon(100, 100, icon.getPixelsPtr());
 
         //Текстура
         Texture texture;

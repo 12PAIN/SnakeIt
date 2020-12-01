@@ -1,49 +1,53 @@
-/*#include<SFML/Graphics.hpp>
+#include<SFML/Graphics.hpp>
 #include<time.h>
+#include"clTron.h"
+
 using namespace sf;
 
-const int W = 600;
-const int H = 480;
-int speed = 4;//Добавить сложности 3-easy mod 4-medium mod 5-hard mod
-bool field[W][H] = { 0 };
-
-struct player
+void clTron::TronGame()
 {
-	int x, y, dir;
-	Color color;
-	player(Color c)
-	{
-		x = rand() % W;
-		y = rand() % H;
-		color = c;
-		dir = rand() % 4;
-	}
-	void tick()
-	{
-		if (dir == 0) y += 1;
-		if (dir == 1) x -= 1;
-		if (dir == 2) x += 1;
-		if (dir == 3) y -= 1;
 
-		if (x >= W) x = 0; if (x < 0) x = W - 1;
-		if (y >= H) y = 0; if (y < 0) y = H - 1;
-	}
+	const static int W = 600;
+	const static int H = 480;
+	int speed = 4;//Добавить сложности 3-easy mod 4-medium mod 5-hard mod
+	bool field[W][H] = { 0 };
 
-	Vector3f getColor()
+	struct player
 	{
-		return Vector3f(color.r, color.g, color.b);
-	}
-};
+		int x, y, dir;
+		Color color;
+		player(Color c)
+		{
+			x = rand() % W;
+			y = rand() % H;
+			color = c;
+			dir = rand() % 4;
+		}
+		void tick()
+		{
+			if (dir == 0) y += 1;
+			if (dir == 1) x -= 1;
+			if (dir == 2) x += 1;
+			if (dir == 3) y -= 1;
 
-int main()
-{
+			if (x >= W) x = 0; if (x < 0) x = W - 1;
+			if (y >= H) y = 0; if (y < 0) y = H - 1;
+		}
+
+		Vector3f getColor()
+		{
+			return Vector3f(color.r, color.g, color.b);
+		}
+	};
+
+
 	srand(time(0));
 
 	RenderWindow window(VideoMode(W, H), "Tron The Game!");
 	window.setFramerateLimit(60);
 
 	Texture texture;
-	texture.loadFromFile("Textures/background.jpg");
+	texture.loadFromFile("../Textures/background.jpg");
 	Sprite sBackground(texture);
 
 	player p1(Color::Red), p2(Color::Green);//Сделать так чтобы пользователь мог сам выбирать цвет 
@@ -56,7 +60,7 @@ int main()
 	t.clear(); t.draw(sBackground);
 
 
-	Font font; font.loadFromFile("Font/arial.ttf");
+	Font font; font.loadFromFile("../Font/arial.ttf");
 	Text textWin("WIN", font, 35);
 	Text textLose("LOSE", font, 35);
 	Text textPlayer1("PLAYER ", font, 35);//Надпись и ее размер
@@ -97,7 +101,7 @@ int main()
 			continue;
 		}
 
-		for (int i = 0; i < speed;i++)
+		for (int i = 0; i < speed; i++)
 		{
 			p1.tick(); p2.tick();
 			if (field[p1.x][p1.y] == 1) { Game = 0; textPlayer1.setFillColor(p2.color), textWin.setFillColor(Color::White); textPlayer2.setFillColor(p1.color), textLose.setFillColor(Color::White); }//Player(цвет игрока) win
@@ -114,6 +118,5 @@ int main()
 		window.draw(sprite);
 		window.display();
 	}
-	return 0;
 }
-*/
+	

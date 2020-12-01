@@ -1,10 +1,11 @@
-/*#include<SFML/Graphics.hpp>
+#include<SFML/Graphics.hpp>
 #include<string>
+#include "clPong1.h"
 
 using namespace sf;
 using namespace std;
 
-int main(int argc, char const* argv[])
+void clPong::Pong()
 {
 	int score = 0;
 	float dx, dy, speed = 5;
@@ -15,7 +16,7 @@ int main(int argc, char const* argv[])
 	window.setFramerateLimit(30);
 
 	Font font;
-	font.loadFromFile("Font/Arial.ttf");
+	font.loadFromFile("../Font/Arial.ttf");
 
 	Text text("", font);
 	text.setString(to_string(score));
@@ -81,6 +82,4 @@ int main(int argc, char const* argv[])
 		window.draw(text);
 		window.display();
 	}
-	return 0;
 }
-*/
