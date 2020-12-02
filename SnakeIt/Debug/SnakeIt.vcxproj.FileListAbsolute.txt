@@ -1,0 +1,4 @@
+E:\Study\SnakeIt\SnakeIt\Debug\SnakeIt.exe
+E:\Study\SnakeIt\SnakeIt\Debug\SnakeIt.pdb
+C:\Users\Никита\Desktop\Study folder\SnakeIt\SnakeIt\Debug\SnakeIt.exe
+C:\Users\Никита\Desktop\Study folder\SnakeIt\SnakeIt\Debug\SnakeIt.pdb
