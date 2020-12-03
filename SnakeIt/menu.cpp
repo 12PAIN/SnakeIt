@@ -71,6 +71,7 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 			if (menu_dropdown != 1) {
 				if (e.type == Event::MouseButtonPressed) {
 					if (e.key.code == Mouse::Left) {
+						click.play();
 						if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 1.5 - wind.y / 22.15)) && (pos.y <= (wind.y / 1.5 + wind.y / 22.15))) {
 							window.close();
 						}
@@ -78,7 +79,7 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 						if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 3. - wind.y / 22.15)) && (pos.y <= (wind.y / 3. + wind.y / 22.15))) {
 							menu_dropdown = 1;
 						}
-						click.play();
+						
 					}
 				}
 			}
