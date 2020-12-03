@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <time.h>
+#include <SFML/Audio.hpp>
 #include <string>
 
 using namespace sf;
@@ -22,10 +23,26 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
         //Загрузка фона
         Texture background;
         background.setRepeated(true);
-        background.loadFromFile("../Textures/background.png");
+        background.loadFromFile("../Textures/background_sapper.png");
         Sprite bground(background);
 
+        //Звук клика меню
+        SoundBuffer click_buffer;
+        click_buffer.loadFromFile("../Audio/sounds/menu_click.wav");
+        Sound click;
+        click.setBuffer(click_buffer);
+
+        //Звук клетки
+        SoundBuffer cage_buffer;
+        cage_buffer.loadFromFile("../Audio/sounds/open cage.wav");
+        Sound cage;
+        cage.setBuffer(cage_buffer);
+
         RenderWindow window(VideoMode(WIDTH, HEIGHT), "SnakeIt:Sapper");
+
+        Image icon;
+        icon.loadFromFile("../Textures/icon_sapper.png");
+        window.setIcon(100, 100, icon.getPixelsPtr());
 
         //Текстура
         Texture texture;
@@ -45,6 +62,11 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
         Clock clock;
         float timer = 0;
 
+        //Звук взрыва
+        SoundBuffer expl;
+        expl.loadFromFile("../Audio/sounds/explosion.wav");
+        Sound explosion;
+        explosion.setBuffer(expl);
 
 
         //Заполнение сетки отображения изначальным полем
@@ -146,20 +168,27 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
 
                         //стоит ли флажок?
                         if (gridView[x][y] != 11) {
+                            //cage.play();
+
+                            if (gridLogic[x][y] == 9) explosion.play();
+
                             gridView[x][y] = gridLogic[x][y];
                             cubeIsOpen[x][y] = 1;
                         }
+                        
 
                     }
 
                     if (event.key.code == Mouse::Left) {
 
                         if ((pos.x >= ((wind.x / 2.0 - wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 - wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
+                            click.play();
                             restart = 1;
 
                         }
 
                         if ((pos.x >= ((wind.x / 2.0 + wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 + wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
+                            click.play();
                             window.close();
                         }
                     }
@@ -399,10 +428,24 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
 
 //Функция проверки проигрыща
 bool clSapper::gameOver() {
+
+    bool yes = 0;
     for (int i = 1; i <= 10; i++)
         for (int j = 1; j <= 10; j++)
-            if (cubeIsOpen[i][j] == 1 && gridLogic[i][j] == 9) return 1;
-    return 0;
+            if (cubeIsOpen[i][j] == 1 && gridLogic[i][j] == 9) {
+                
+                for (int i = 1; i <= 10; i++) {
+                    for (int j = 1; j <= 10; j++) {
+                        if (gridLogic[i][j] == 9) gridView[i][j] = 9;
+                    }
+                }
+
+                yes = 1;
+            }
+    if (yes == 1) {
+
+        return 1;
+    }else return 0;
 };
 
 //Функция проверки выйгрыша(Когда на всех бомбах будут стоять флажки

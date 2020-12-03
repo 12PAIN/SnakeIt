@@ -1,0 +1,15 @@
+﻿  clSapper.cpp
+E:\Study\SnakeIt\SnakeIt\clSapper.cpp(21,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clSapper.cpp(147,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clSapper.cpp(148,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clSapper.cpp(275,44): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clSapper.cpp(275,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clSapper.cpp(294,52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clSapper.cpp(294,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clSapper.cpp(315,59): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clSapper.cpp(315,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clSapper.cpp(341,52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clSapper.cpp(341,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clSapper.cpp(351,59): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clSapper.cpp(351,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  SnakeIt.vcxproj -> E:\Study\SnakeIt\SnakeIt\Debug\SnakeIt.exe
