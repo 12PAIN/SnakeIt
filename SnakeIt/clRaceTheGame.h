@@ -1,12 +1,13 @@
 #pragma once
 
 #include <string>
+#include <thread>
 
 class RGame {
 public:
     void RaceTheGame();
 private:
-
+    
     const double SCREEN_WIDTH = 800;
     const double SCREEN_HEIGH = 600;
     const int borderLeft = 140;
@@ -17,7 +18,10 @@ private:
     int score = 0;
     double gameSpeed = 0.15;
 
-
+    
+   
+   
+    
     int startGame();
     int getRandomNumber(int, int);
 };

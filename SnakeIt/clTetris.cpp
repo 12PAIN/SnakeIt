@@ -4,16 +4,29 @@
 #include <time.h>
 #include <string>
 #include <SFML/Audio.hpp>
+#include <fstream>
+
+
 
 using namespace sf;
+
+int highscore;
 
 void clTetris::Tetris(int WIDTH, int HEIGHT) {
 
     //Инициализация переменной рестарта
     bool restart = 0;
+    std::ifstream fin("TetrisHighscore.txt");
     
+
+    fin >> highscore;
+    fin.close();
+
+
+    RenderWindow window(VideoMode(WIDTH, HEIGHT), "SnakeIt:Tetris");
     do{
         
+        restart = 0;
 
         //Очистка поля
         for (int i = 0; i < M; i++) {
@@ -37,7 +50,7 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
         Sound click;
         click.setBuffer(click_buffer);
     
-        RenderWindow window(VideoMode(WIDTH, HEIGHT), "SnakeIt:Tetris");
+        
     
         //Загрузка "сетки"
         Texture net_tex;
@@ -170,7 +183,7 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
                     }
                     if (event.key.code == Keyboard::R) {
                         restart = 1;
-                        window.close();
+                        
                     }
                     if (event.key.code == Keyboard::S) {
                         beginGame_1 = 0;
@@ -180,11 +193,12 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
 
                 if (event.type == Event::MouseButtonPressed) {
                     if(event.key.code == Mouse::Left){
-                        click.play();
+                        
                         if ((pos.x >= ((wind.x / 2.0 - wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 - wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
+                            click.play();
                             if (beginGame_1 != 1) {
                                 restart = 1;
-                                window.close();
+                                
                             }
                             else {
                                 beginGame_1 = 0;
@@ -192,6 +206,7 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
                         }
 
                         if ((pos.x >= ((wind.x / 2.0 + wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 + wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
+                            click.play();
                             window.close();
                         }
                     }
@@ -353,7 +368,9 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
             }
 
             
-
+            if (highscore < score.num) {
+                highscore = score.num;
+            }
 
     
             window.clear(Color::White);
@@ -405,17 +422,28 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
                 for (int i = 0; i < 4; i++) {
                     sprite.setTextureRect(IntRect(colorNum_new * 18, 0, 18, 18));
                     sprite.setPosition((figures[n_new][i] % 2) * 18, (figures[n_new][i] / 2) * 18);
-                    sprite.move(255, 120);
+                    sprite.move(255, 160);
                     window.draw(sprite);
                 }
             }
-    
+            
+            std::string hi_str ="Highscore: " + std::to_string(highscore);
+
+            // Надпись лучшего счёта
+            Text highscore_text("", font, 20);
+            highscore_text.setFillColor(Color::White);
+            highscore_text.setStyle(Text::Bold | Text::Italic);
+            highscore_text.setString(hi_str);
+            highscore_text.setPosition(N * 18 + 60, 95);
+            window.draw(highscore_text);
+
+
             // Надпись для следующей фигуры
             Text next("", font, 20);
             next.setFillColor(Color::White);
             next.setStyle(Text::Bold | Text::Italic);
             next.setString("Next figure: ");
-            next.setPosition(N * 18 + 60, 95);
+            next.setPosition(N * 18 + 60, 95 + 40);
             window.draw(next);
     
             //Строка нужная для вывода таймера обратного отсчёта
@@ -520,6 +548,13 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
             }
         }
     }while (restart == 1);
+    std::ofstream fout("TetrisHighscore.txt", std::ofstream::out | std::ofstream::trunc);
+
+    fout << highscore;
+
+
+
+    fout.close();
 };
 
 
