@@ -1,15 +1,20 @@
-﻿  clSapper.cpp
-E:\Study\SnakeIt\SnakeIt\clSapper.cpp(21,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-E:\Study\SnakeIt\SnakeIt\clSapper.cpp(147,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-E:\Study\SnakeIt\SnakeIt\clSapper.cpp(148,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-E:\Study\SnakeIt\SnakeIt\clSapper.cpp(275,44): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\clSapper.cpp(275,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\clSapper.cpp(294,52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\clSapper.cpp(294,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\clSapper.cpp(315,59): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\clSapper.cpp(315,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\clSapper.cpp(341,52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\clSapper.cpp(341,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\clSapper.cpp(351,59): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Study\SnakeIt\SnakeIt\clSapper.cpp(351,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  clTetris.cpp
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(39,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(96,37): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(124,23): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(179,37): warning C4305: '=': truncation from 'double' to 'float'
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(318,30): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(320,31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(389,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(389,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(401,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(401,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(412,60): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(412,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(422,94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(422,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(457,61): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(457,44): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(463,69): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clTetris.cpp(463,45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   SnakeIt.vcxproj -> E:\Study\SnakeIt\SnakeIt\Debug\SnakeIt.exe
