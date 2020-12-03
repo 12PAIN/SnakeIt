@@ -1,4 +1,6 @@
 #pragma once
+
+
 class clSapper {
 public:
 
@@ -13,6 +15,8 @@ private:
     int w = 32;
 
     bool gameOver();
+
+    
 
     
     bool win();

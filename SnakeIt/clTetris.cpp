@@ -25,11 +25,17 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
         //Установка рандома
         srand(time(0));
 
+        //Звук тестовый
         SoundBuffer buffer;
         buffer.loadFromFile("../Audio/test1.wav");
-
         Sound sound;
         sound.setBuffer(buffer);
+
+        //Звук клика по кнопке меню
+        SoundBuffer click_buffer;
+        click_buffer.loadFromFile("../Audio/sounds/menu_click.wav");
+        Sound click;
+        click.setBuffer(click_buffer);
     
         RenderWindow window(VideoMode(WIDTH, HEIGHT), "SnakeIt:Tetris");
     
@@ -174,6 +180,7 @@ void clTetris::Tetris(int WIDTH, int HEIGHT) {
 
                 if (event.type == Event::MouseButtonPressed) {
                     if(event.key.code == Mouse::Left){
+                        click.play();
                         if ((pos.x >= ((wind.x / 2.0 - wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 - wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
                             if (beginGame_1 != 1) {
                                 restart = 1;

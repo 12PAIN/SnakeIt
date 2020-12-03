@@ -9,6 +9,7 @@
 #include "clTron.h"
 #include "menu.h"
 #include "clPong1.h"
+#include <SFML/Audio.hpp>
 
 using namespace sf;
 
@@ -26,6 +27,13 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 	//загрузка шрифта
 	Font font;
 	font.loadFromFile("../Font/Arial.ttf");
+
+	//Звуки
+	SoundBuffer buffer;
+	buffer.loadFromFile("../Audio/sounds/menu_click.wav");
+
+	Sound click;
+	click.setBuffer(buffer);
 	
 	//Загрузка текстуры кнопки
 	Texture btn_tex;
@@ -70,12 +78,14 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 						if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 3. - wind.y / 22.15)) && (pos.y <= (wind.y / 3. + wind.y / 22.15))) {
 							menu_dropdown = 1;
 						}
+						click.play();
 					}
 				}
 			}
 			else {
 				if (e.type == Event::MouseButtonPressed) {
 					if (e.key.code == Mouse::Left) {
+						click.play();
 						if ((pos.x >= (wind.x / 2.0 - wind.x / 12.8)) && (pos.x <= (wind.x / 2.0 + wind.x / 12.8)) && (pos.y >= (wind.y / 1.2 - wind.y / 22.15)) && (pos.y <= (wind.y / 1.2 + wind.y / 22.15))) {
 							menu_dropdown = 0;
 						}
@@ -110,6 +120,8 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 							clPong pong;
 							pong.Pong();
 						}
+
+						
 
 					}
 				}
