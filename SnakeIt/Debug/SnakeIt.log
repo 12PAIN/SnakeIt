@@ -1,1 +1,16 @@
-﻿  SnakeIt.vcxproj -> E:\Study\SnakeIt\SnakeIt\Debug\SnakeIt.exe
+﻿  clRaceTheGame.cpp
+E:\Study\SnakeIt\SnakeIt\clRaceTheGame.cpp(18,54): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clRaceTheGame.cpp(107,31): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\Study\SnakeIt\SnakeIt\clRaceTheGame.cpp(134,39): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clRaceTheGame.cpp(134,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clRaceTheGame.cpp(135,37): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clRaceTheGame.cpp(135,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clRaceTheGame.cpp(136,37): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clRaceTheGame.cpp(136,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clRaceTheGame.cpp(137,37): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clRaceTheGame.cpp(137,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clRaceTheGame.cpp(138,37): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clRaceTheGame.cpp(138,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clRaceTheGame.cpp(141,39): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\Study\SnakeIt\SnakeIt\clRaceTheGame.cpp(142,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  SnakeIt.vcxproj -> E:\Study\SnakeIt\SnakeIt\Debug\SnakeIt.exe

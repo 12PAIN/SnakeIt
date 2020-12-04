@@ -10,7 +10,7 @@ using namespace sf;
 void clSapper::Sapper(int WIDTH, int HEIGHT){
         
     bool restart = 0;
-
+    RenderWindow window(VideoMode(WIDTH, HEIGHT), "SnakeIt:Sapper");
     do {
 
         if (restart == 1) {
@@ -32,13 +32,28 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
         Sound click;
         click.setBuffer(click_buffer);
 
+
+        //Звук победы
+        SoundBuffer win_b;
+        win_b.loadFromFile("../Audio/Nsounds/victory 3.wav");
+        Sound win_s;
+        win_s.setBuffer(win_b);
+
         //Звук клетки
         SoundBuffer cage_buffer;
         cage_buffer.loadFromFile("../Audio/sounds/open cage.wav");
         Sound cage;
         cage.setBuffer(cage_buffer);
 
-        RenderWindow window(VideoMode(WIDTH, HEIGHT), "SnakeIt:Sapper");
+        //Звук взрыва
+        SoundBuffer expl;
+        expl.loadFromFile("../Audio/sounds/explosion.wav");
+        Sound explosion;
+        explosion.setBuffer(expl);
+
+        win_s.setVolume(30.f);
+        explosion.setVolume(30.f);
+        cage.setVolume(30.f);
 
         Image icon;
         icon.loadFromFile("../Textures/icon_sapper.png");
@@ -48,7 +63,6 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
         Texture texture;
         texture.loadFromFile("../Textures/sapper.png");
         Sprite s(texture);
-
 
         //Загрузка текстуры кнопки
         Texture btn_tex;
@@ -61,13 +75,6 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
         //таймер
         Clock clock;
         float timer = 0;
-
-        //Звук взрыва
-        SoundBuffer expl;
-        expl.loadFromFile("../Audio/sounds/explosion.wav");
-        Sound explosion;
-        explosion.setBuffer(expl);
-
 
         //Заполнение сетки отображения изначальным полем
         for (int i = 1; i <= 10; i++) {
@@ -117,6 +124,7 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
         //Переменные чтобы не запускать функцию каждый раз
         bool gameOvervar = 0;
         bool winVar = 0;
+        bool first_move = 1;
 
         while (window.isOpen()) {
 
@@ -168,10 +176,24 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
 
                         //стоит ли флажок?
                         if (gridView[x][y] != 11) {
-                            //cage.play();
-
-                            if (gridLogic[x][y] == 9) explosion.play();
-
+                            cage.play();
+                            if (first_move == 1) {
+                            
+                                first_move = 0;
+                                gridLogic[x][y] = 0;
+                                if (gridLogic[x - 1][y - 1] == 9) gridLogic[x][y]++;
+                                if (gridLogic[x - 1][y] == 9) gridLogic[x][y]++;
+                                if (gridLogic[x - 1][y + 1] == 9) gridLogic[x][y]++;
+                                if (gridLogic[x][y - 1] == 9) gridLogic[x][y]++;
+                                if (gridLogic[x][y + 1] == 9) gridLogic[x][y]++;
+                                if (gridLogic[x + 1][y - 1] == 9) gridLogic[x][y]++;
+                                if (gridLogic[x + 1][y] == 9) gridLogic[x][y]++;
+                                if (gridLogic[x + 1][y + 1] == 9) gridLogic[x][y]++;
+                            
+                            }
+                            else {
+                                if (gridLogic[x][y] == 9) explosion.play();
+                            }
                             gridView[x][y] = gridLogic[x][y];
                             cubeIsOpen[x][y] = 1;
                         }
@@ -293,13 +315,12 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
                 text.setOutlineThickness(2);
                 text.setPosition(WIDTH / 2, HEIGHT / 2);
 
-                //Текст обратного отсчёта
+                //Текст Game Over
                 Text text1("", font, 20);
                 text1.setFillColor(Color::Red);
                 text1.setStyle(Text::Bold | Text::Underlined);
                 text1.setOutlineColor(Color::Black);
-                text1.setOutlineThickness(2);
-
+                
 
                 //Обратный отсчёт
                 if (timer > 1.0) {
@@ -312,7 +333,8 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
                 text1.setString(str);
                 FloatRect text1_rect = text1.getLocalBounds();
                 text1.setOrigin(text1_rect.left + text1_rect.width / 2.0f, text1_rect.top + text1_rect.height / 2.0f);
-                text1.setPosition(WIDTH / 2, (HEIGHT / 2) + 32);
+                text1.setOutlineThickness(2);
+                text1.setPosition(WIDTH / 2, HEIGHT / 2 + 32);
 
                 window.draw(text1);
                 window.draw(text);
@@ -329,6 +351,10 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
             //Текст если выйграл
             if (gameOvervar != 1 && winVar == 1) {
 
+                if (win_s.getStatus() == 0) {
+                    win_s.play();
+                }
+
                 //Текст Game Over
                 Text text("", font, 20);
                 text.setFillColor(Color::Green);
@@ -344,11 +370,8 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
                 Text text1("", font, 20);
                 text1.setFillColor(Color::Green);
                 text1.setOutlineColor(Color::Black);
-                FloatRect text1_rect = text1.getLocalBounds();
-                text1.setOrigin(text1_rect.left + text1_rect.width / 2.0f, text1_rect.top + text1_rect.height / 2.0f);
                 text1.setStyle(Text::Bold | Text::Underlined);
-                text1.setOutlineThickness(2);
-                text1.setPosition(WIDTH / 2, (HEIGHT / 2) + 32);
+                
 
                 //Обратный отсчёт
                 if (timer > 1.0) {
@@ -359,8 +382,13 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
                 //Корректирока секунд обратного отсчёта в реальном времени
                 str = "To close:" + std::to_string(countDeath);
                 text1.setString(str);
-                window.draw(text1);
+                FloatRect text1_rect = text1.getLocalBounds();
+                text1.setOrigin(text1_rect.left + text1_rect.width / 2.0f, text1_rect.top + text1_rect.height / 2.0f);
+                text1.setOutlineThickness(2);
+                text1.setPosition(WIDTH / 2, HEIGHT / 2 + 32);
+
                 window.draw(text);
+                window.draw(text1);
 
                 //Завершение программы после окончания обратного отсчёта
                 if (countDeath == 0) {
@@ -374,12 +402,13 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
 
             //Кнопки
             Sprite btn_1(btn_tex);
+            btn_1.setTextureRect(IntRect(0, 0, 200, 65));
             FloatRect btn_1_rect = btn_1.getLocalBounds();
             btn_1.setOrigin(btn_1_rect.left + btn_1_rect.width / 2.0f, btn_1_rect.top + btn_1_rect.height / 2.0f);
             btn_1.setPosition(Vector2f(WIDTH / 2.0f - WIDTH / 8.5333f, HEIGHT - HEIGHT / 4.2352f));
 
             Text text_1("", font, 20);
-            text_1.setFillColor(Color::Black);
+            text_1.setFillColor(Color::White);
             text_1.setStyle(Text::Bold);
             text_1.setString("Restart");
             FloatRect text_1_rect = text_1.getLocalBounds();
@@ -388,12 +417,13 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
 
 
             Sprite btn_2(btn_tex);
+            btn_2.setTextureRect(IntRect(0, 0, 200, 65));
             FloatRect btn_2_rect = btn_2.getLocalBounds();
             btn_2.setOrigin(btn_2_rect.left + btn_2_rect.width / 2.0f, btn_2_rect.top + btn_2_rect.height / 2.0f);
             btn_2.setPosition(Vector2f(WIDTH / 2.0f + WIDTH / 8.5333f, HEIGHT - HEIGHT / 4.2352f));
 
             Text text_2("", font, 20);
-            text_2.setFillColor(Color::Black);
+            text_2.setFillColor(Color::White);
             text_2.setStyle(Text::Bold);
             text_2.setString("Exit");
             FloatRect text_2_rect = text_2.getLocalBounds();
@@ -401,11 +431,11 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
             text_2.setPosition(Vector2f(WIDTH / 2.0f + WIDTH / 8.5333f, HEIGHT - HEIGHT / 4.2352f));
 
             if ((pos.x >= ((wind.x / 2.0 - wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 - wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
-                btn_1.setColor(Color(255, 255, 255, 200));
+                btn_1.setTextureRect(IntRect(0, 65, 200, 65));
             }
 
             if ((pos.x >= ((wind.x / 2.0 + wind.x / 8.5333) - wind.x / 12.8)) && (pos.x <= ((wind.x / 2.0 + wind.x / 8.5333) + wind.x / 12.8)) && (pos.y >= ((wind.y - wind.y / 4.2352) - wind.y / 22.15)) && (pos.y <= ((wind.y - wind.y / 4.2352) + wind.y / 22.15))) {
-                btn_2.setColor(Color(255, 255, 255, 200));
+                btn_2.setTextureRect(IntRect(0, 65, 200, 65));
             }
 
 
@@ -450,12 +480,15 @@ bool clSapper::gameOver() {
 
 //Функция проверки выйгрыша(Когда на всех бомбах будут стоять флажки
 bool clSapper::win() {
-    int count = 0;
+    int count_bombs = 0, count = 0;
     for (int i = 1; i <= 10; i++)
-        for (int j = 1; j <= 10; j++)
-            if (gridView[i][j] == 11 && gridLogic[i][j] == 9) count++;
-
-    if (count == bombs) return 1;
+        for (int j = 1; j <= 10; j++) {
+            if (gridView[i][j] == 11 && gridLogic[i][j] == 9) count_bombs++;
+            if (gridView[i][j] == 11) count++;
+        }
+    
+    if (count == count_bombs && count_bombs == bombs) return 1;
+    if (count_bombs == bombs) return 1;
 
     return 0;
 };
