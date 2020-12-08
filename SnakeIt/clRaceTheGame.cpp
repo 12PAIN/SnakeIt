@@ -110,6 +110,9 @@ void RGame::RaceTheGame()
 
         bool gameOverBool = 0;
 
+        Clock clock;
+        float timer = 0, delay = 0.0001,timer_1 = 0;
+
         while (app.isOpen())
         {
             Vector2i pos = Mouse::getPosition(app);
@@ -117,6 +120,12 @@ void RGame::RaceTheGame()
             Vector2i wind;
             wind.x = app.getSize().x;
             wind.y = app.getSize().y;
+
+            float time = clock.getElapsedTime().asSeconds();
+            clock.restart();
+
+            timer += time;
+            timer_1 += time;
 
             speedupBool = 0, slowDown = 0;
             speedup = 0, slowdown = 0;
@@ -137,19 +146,21 @@ void RGame::RaceTheGame()
             Obs3.setPosition(Obs3X, Obs3Y);
             Obs4.setPosition(Obs4X, Obs4Y);
 
-            //scrolling background 
-            Background.setPosition(0, BackgroundY1);
-            Background1.setPosition(0, BackgroundY2);
-            if (BackgroundY2 > 0)
-            {
-                BackgroundY1 = 0;
-                BackgroundY2 = BackgroundY1 - 500;
+
+            if (timer > delay) {
+                //scrolling background 
+                Background.setPosition(0, BackgroundY1);
+                Background1.setPosition(0, BackgroundY2);
+                if (BackgroundY2 > 0)
+                {
+                    BackgroundY1 = 0;
+                    BackgroundY2 = BackgroundY1 - 500;
+                }
             }
-
-            if (gameOverBool != 1 && beginGame != 1) {
-
+            if (gameOverBool != 1 && beginGame != 1 && timer > delay) {
 
 
+                timer = 0;
 
                 //Генератор встречных машин
                 if (Obs1Y > SCREEN_HEIGH)
@@ -210,6 +221,7 @@ void RGame::RaceTheGame()
 
                 if (event.type == sf::Event::KeyPressed)
                 {
+
                     if (gameOverBool != 1 && beginGame != 1)
                         if (event.key.code == sf::Keyboard::Left)
                         {
@@ -232,6 +244,7 @@ void RGame::RaceTheGame()
                         {
                             slowDown = 1;
                         }
+                    
                     if (event.key.code == sf::Keyboard::R)
                     {
                         gameOverBool = 0;
@@ -263,10 +276,10 @@ void RGame::RaceTheGame()
                         }
                 }
 
-
-                
-
             }
+
+
+            
 
             //Ускоренеи игры с набором игрового уровня 
 
@@ -275,14 +288,18 @@ void RGame::RaceTheGame()
             if (slowDown == 1) slowdown = 1;
             else slowdown = 0;
 
-            if (score < 200) {
-                gameSpeed = 0.20 + (score / 1 * 0.002) + speedup * 0.15 - slowdown * 0.15;
+            if (score < 600) {
+                gameSpeed = 0.10 + (score / 3 * 0.001);
+                if (speedup == 1 && slowdown != 1) gameSpeed += 0.3;
+                //else gameSpeed -= 0.1;
+                
             }
 
-            if (speedupBool == 1) {
-                if (rand() % 10 == 0) {
-                    score++;
-                }
+            if (speedup == 1 && timer_1 > 0.1) {
+                speedup = 0;
+                timer_1 = 0;
+                score++;
+                
             }
 
             if (beginGame != 1) {

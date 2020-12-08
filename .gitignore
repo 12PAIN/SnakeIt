@@ -384,3 +384,4 @@ MigrationBackup/
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,windows
 RaceHighscore.txt
+SnakeIt/SFML-2.5.1/include/SFML/Input.hpp
