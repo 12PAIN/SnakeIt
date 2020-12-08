@@ -16,6 +16,7 @@ private:
 
     bool gameOver();
 
+    void fieldFill(int, int);
     
 
     

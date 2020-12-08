@@ -13,6 +13,8 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
     RenderWindow window(VideoMode(WIDTH, HEIGHT), "SnakeIt:Sapper");
     do {
 
+        bombs = 0;
+
         if (restart == 1) {
             restart = 0;
         }
@@ -80,38 +82,8 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
         for (int i = 1; i <= 10; i++) {
             for (int j = 1; j <= 10; j++) {
                 gridView[i][j] = 10;
+                gridLogic[i][j] = 0;
                 cubeIsOpen[i][j] = 0;
-            }
-        }
-
-        //Заполнение бомб
-        for (int i = 1; i <= 10; i++) {
-            for (int j = 1; j <= 10; j++) {
-                if (rand() % 5 == 0) {
-                    gridLogic[i][j] = 9;
-                    bombs++;
-                }
-                else gridLogic[i][j] = 0;
-
-            }
-        }
-
-        //Заполнение поля количеством бомб
-        for (int i = 1; i <= 10; i++) {
-            for (int j = 1; j <= 10; j++) {
-                if (gridLogic[i][j] != 9) {
-                    if (gridLogic[i - 1][j - 1] == 9) gridLogic[i][j]++;
-                    if (gridLogic[i - 1][j] == 9) gridLogic[i][j]++;
-                    if (gridLogic[i - 1][j + 1] == 9) gridLogic[i][j]++;
-                    if (gridLogic[i][j - 1] == 9) gridLogic[i][j]++;
-                    if (gridLogic[i][j + 1] == 9) gridLogic[i][j]++;
-                    if (gridLogic[i + 1][j - 1] == 9) gridLogic[i][j]++;
-                    if (gridLogic[i + 1][j] == 9) gridLogic[i][j]++;
-                    if (gridLogic[i + 1][j + 1] == 9) gridLogic[i][j]++;
-                }
-                else {
-                    continue;
-                }
             }
         }
 
@@ -129,16 +101,13 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
         while (window.isOpen()) {
 
             //Запись значений функций
-            gameOvervar = gameOver();
-            winVar = win();
+            if (first_move != 1) gameOvervar = gameOver();
+            if(first_move != 1) winVar = win();
 
             //Настройка таймера
             float time = clock.getElapsedTime().asSeconds();
             clock.restart();
             timer += time;
-
-
-
 
             //Обработка событий
             Event event;
@@ -152,8 +121,8 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
             Vector2i pos = Mouse::getPosition(window);
 
             //Обработка для программы этих же координат
-            int x = (pos.x - wind.x / 3.0769) / (wind.x / 40);
-            int y = (pos.y - wind.y / 4.5) / (wind.y / 22.5);
+            int x = (pos.x - wind.x / 2.86353) / (wind.x / 40);
+            int y = (pos.y - wind.y / 5.625) / (wind.y / 22.5);
 
 
 
@@ -172,23 +141,15 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
                 }
 
                 if (event.type == Event::MouseButtonPressed) {
-                    if (event.key.code == Mouse::Left && gameOvervar != 1 && winVar != 1) {
+                    if (event.key.code == Mouse::Left && gameOvervar != 1 && winVar != 1 && pos.x >= ( wind.x / 2.67223) && pos.x <= (wind.x / 1.602002) && pos.y >= (wind.y / 4.5) && pos.y <= wind.y / 1.5) {
 
                         //стоит ли флажок?
-                        if (gridView[x][y] != 11) {
+                        if (gridView[x][y] != 11 && gridView[x][y] > 8) {
                             cage.play();
                             if (first_move == 1) {
                             
                                 first_move = 0;
-                                gridLogic[x][y] = 0;
-                                if (gridLogic[x - 1][y - 1] == 9) gridLogic[x][y]++;
-                                if (gridLogic[x - 1][y] == 9) gridLogic[x][y]++;
-                                if (gridLogic[x - 1][y + 1] == 9) gridLogic[x][y]++;
-                                if (gridLogic[x][y - 1] == 9) gridLogic[x][y]++;
-                                if (gridLogic[x][y + 1] == 9) gridLogic[x][y]++;
-                                if (gridLogic[x + 1][y - 1] == 9) gridLogic[x][y]++;
-                                if (gridLogic[x + 1][y] == 9) gridLogic[x][y]++;
-                                if (gridLogic[x + 1][y + 1] == 9) gridLogic[x][y]++;
+                                fieldFill(x, y);
                             
                             }
                             else {
@@ -295,11 +256,21 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
                 for (int j = 1; j <= 10; j++) {
                     s.setTextureRect(IntRect(gridView[i][j] * w, 0, w, w));
                     s.setPosition(i * w, j * w);
-                    s.move(416, 160);
+                    s.move(447, 128);
                     window.draw(s);
                 }
             }
-
+            /*
+            //Отображение поля debug
+            for (int i = 1; i <= 10; i++) {
+                for (int j = 1; j <= 10; j++) {
+                    s.setTextureRect(IntRect(gridLogic[i][j] * w, 0, w, w));
+                    s.setPosition(i * w, j * w);
+                    s.move(745, 160);
+                    window.draw(s);
+                }
+            }
+            */
 
             //Текст если проиграл
             if (gameOvervar == 1) {
@@ -456,7 +427,7 @@ void clSapper::Sapper(int WIDTH, int HEIGHT){
 
     };
 
-//Функция проверки проигрыща
+//Функция проверки проигрыша
 bool clSapper::gameOver() {
 
     bool yes = 0;
@@ -478,7 +449,7 @@ bool clSapper::gameOver() {
     }else return 0;
 };
 
-//Функция проверки выйгрыша(Когда на всех бомбах будут стоять флажки
+//Функция проверки выйгрыша(Когда на всех бомбах будут стоять флажки)
 bool clSapper::win() {
     int count_bombs = 0, count = 0;
     for (int i = 1; i <= 10; i++)
@@ -488,12 +459,43 @@ bool clSapper::win() {
         }
     
     if (count == count_bombs && count_bombs == bombs) return 1;
-    if (count_bombs == bombs) return 1;
 
     return 0;
 };
 
+void clSapper::fieldFill(int x, int y) {
+    
+    //Заполнение бомб
+    for (int i = 1; i <= 10; i++) {
+        for (int j = 1; j <= 10; j++) {
+            if (rand() % 5 == 0 && i != x && j != y) {
+                gridLogic[i][j] = 9;
+                bombs++;
+            }
+            else gridLogic[i][j] = 0;
 
+        }
+    }
+
+    //Заполнение поля количеством бомб
+    for (int i = 1; i <= 10; i++) {
+        for (int j = 1; j <= 10; j++) {
+            if (gridLogic[i][j] != 9) {
+                if (gridLogic[i - 1][j - 1] == 9) gridLogic[i][j]++;
+                if (gridLogic[i - 1][j] == 9) gridLogic[i][j]++;
+                if (gridLogic[i - 1][j + 1] == 9) gridLogic[i][j]++;
+                if (gridLogic[i][j - 1] == 9) gridLogic[i][j]++;
+                if (gridLogic[i][j + 1] == 9) gridLogic[i][j]++;
+                if (gridLogic[i + 1][j - 1] == 9) gridLogic[i][j]++;
+                if (gridLogic[i + 1][j] == 9) gridLogic[i][j]++;
+                if (gridLogic[i + 1][j + 1] == 9) gridLogic[i][j]++;
+            }
+            else {
+                continue;
+            }
+        }
+    }
+};
 
 
 
