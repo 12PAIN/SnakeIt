@@ -65,6 +65,10 @@ void clTron::TronGame()
 	Text textLose("LOSE", font, 35);
 	Text textPlayer1("PLAYER ", font, 35);//Надпись и ее размер
 	Text textPlayer2("PLAYER ", font, 35);
+	textPlayer1.setOutlineThickness(1);
+	textPlayer1.setOutlineColor(Color::Black);
+	textPlayer2.setOutlineThickness(1);
+	textPlayer2.setOutlineColor(Color::Black);
 	textPlayer1.setPosition(W / 2 - 125, 30);//Координаты вывода этой надписи
 	textPlayer2.setPosition(W / 2 - 125, 60);
 	textWin.setPosition(W / 2 + 25, 30);

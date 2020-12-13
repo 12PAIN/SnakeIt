@@ -201,7 +201,7 @@ void clMenu::menu(int WIDTH, int HEIGHT) {
 			btn_3.setOrigin(btn_3_rect.left + btn_3_rect.width / 2.0f, btn_3_rect.top + btn_3_rect.height / 2.0f);
 			btn_3.setPosition(Vector2f(WIDTH / 2.0f, HEIGHT / 2.0f));
 
-			Text text_3("", font, 20);
+			Text text_3("", font, 18);
 			text_3.setFillColor(Color::White);
 			text_3.setStyle(Text::Bold);
 			text_3.setString("Reset highscores");
